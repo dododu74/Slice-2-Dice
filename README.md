@@ -12,15 +12,20 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Changelog
 
+### V4 :
+
+* Création de scènes différentes
+
+* Implémentation d'un changement de scène par le trigger d'un appuie sur une touche.
 
 
 ### V3 :
 
-* Changement de TAD pour l'afffichage, utilisation d'une file pour afficher le premier élément, que l'on aurai introduit en premier dans la file, **FIFO** (*First In First Out*)
+* Changement de TAD pour l'affichage, utilisation d'une file pour afficher le premier élément, que l'on aurai introduit en premier dans la file, **FIFO** (*First In First Out*)
 
-* On définis la priorité d'affichage comme étant le degré qui détermine quel est l'objet a afficher en premier, plus la priorité est faible, plus ce sera le premier a être trété, donc le premier dans la file "d'impression".
+* On définis la priorité d'affichage comme étant le degré qui détermine quel est l'objet a afficher en premier, plus la priorité est faible, plus ce sera le premier a être traité, donc le premier dans la file "d'impression".
 
-* On ajoute l'élement dans la file directement la où il devrais être, par rapport à sa priporité donc on n'a pas besoin d'une fonction qui trierai la file
+* On ajoute l'élément dans la file directement la où il devrais être, par rapport à sa priorité donc on n'a pas besoin d'une fonction qui trierai la file
 
 
 
@@ -40,10 +45,9 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Roadmap, Idées 
 
-* Ajouter une priorité sur les rectangles, définissant leurs ordre d'affichage.
-* Utiliser une bibliothèque locale pour l'ensemble des fonctions d'affichages :
-    + Permettre l'affichage total d'une scène en fonction des priorités d'affichages des rectangles.
-* Création de scènes différentes
+
+
+
 * Permettre le changement de scènes (expérimentalement: par appuie d'une touche)
 
 *etc...*
