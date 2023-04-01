@@ -4,7 +4,7 @@
 
 Je veux faire un jeu de team building à la façon de *Slice & Dice*. En utilisant Pygame.
 
-![Slice & Dice](../Images/Slice_dice.png)
+![Slice & Dice](Images/Slice_dice.png)
 
 ## Fonctionnalités 
 
