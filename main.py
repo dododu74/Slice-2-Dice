@@ -1,11 +1,11 @@
 import pygame
 from affichage import *
 
-Boite1 = Rectangles('Boite1', (175, 96, 26), (80,200,40,200))
-Boite2 = Rectangles('Boite2', (105, 105, 105), (0, 50, 200, 400))
-Boite3 = Rectangles('Boite3', (105, 105, 105), (800, 50, 200, 400))
-Boite4 = Rectangles('Boite4', (175, 96, 26), (30,210,140,20))
-Rond1 = Rectangles('Rond1', (175, 96, 26), (100, 180), 20)
+Boite1 = Rectangles('Corps', 10,(175, 96, 26), (80,200,40,200))
+Boite2 = Rectangles('Boites Joueurs1', 1, (105, 105, 105), (0, 50, 200, 400))
+Boite3 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (800, 50, 200, 400))
+Boite4 = Rectangles('Bras', 10,(175, 96, 26), (30,210,140,20))
+Rond1 = Rectangles('Tete', 10,(175, 96, 26), (100, 180), 20)
 SCENE = Scene("Combat", (90, 50, 30))
 SCENE.ajout_elm(Boite1)
 SCENE.ajout_elm(Boite2)
@@ -24,7 +24,7 @@ screen = pygame.display.set_mode([1000, 500])
 # Fill the background with white
 screen.fill(SCENE.couleur_fond)
 
-image = pygame.image.load( "../Images\Slice_dice.png").convert_alpha()
+image = pygame.image.load( "Images\Slice_dice.png").convert_alpha()
 image = pygame.transform.scale(image, (400, 100))
 
 

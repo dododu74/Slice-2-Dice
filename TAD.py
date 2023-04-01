@@ -11,16 +11,16 @@ class File:
             ligne2 += f"{elm} "
         return f"{ligne1}\n{ligne2}\n{ligne1}"
     
-    def file_est_vide(self):
+    def file_est_vide(self) -> bool:
         '''Vérifie si la file est vide'''
         return self.file == []
 
-    def enfiler(self, element):
+    def enfiler(self, element) -> None:
         '''On enfile un élément dans la file'''
         self.file = [element] + self.file
 
     def defiler(self):
-        '''On va défiler un élément dans la file'''
+        '''On va défiler un élément dans la file et le retourner'''
         elm = self.file[-1]
         self.file = self.file[:-1]
         return elm
@@ -29,6 +29,15 @@ class File:
         '''On montre la tête de la file'''
         return self.file[-1]
 
+    def queue(self):
+        '''On montre quel est le dernier élément a être entré dans la file'''
+        return self.file[0]
+
+
+
+    def taille(self) -> int:
+        '''On return la taille de la file'''
+        return len (self.file)
 
 class Pile:
     def __init__(self):

@@ -2,9 +2,9 @@ import pygame
 from TAD import *
 
 class Rectangles :
-    def __init__(self, valeur, priorite, color, pos, radius = None) -> None:
+    def __init__(self, valeur:str, priorit:int, color:tuple, pos:tuple, radius = None) -> None:
         self.valeur = valeur
-        self.priorite = priorite
+        self.priorite = priorit
         self.couleur = color
         self.position = pos
         self.radius = radius
@@ -13,21 +13,40 @@ class Scene :
     def __init__(self, nom, couleur_de_fond = (255,255,255)) -> None:
         self.nom = nom
         self.couleur_fond = couleur_de_fond
-        self.pile_objets = Pile()
+        self.file_objets = File()
 
     def ajout_elm(self, elm :Rectangles) :
-        self.pile_objets.empiler(elm)
-    
-    def trier_objets(self):
-        liste = []
-        liste_priorite = []
-        for i in range(self.pile_objets.taille()):
-            elm = self.pile_objets.depiler
-            liste.append(elm)
-            liste_priorite.append(elm.priorite)
-        sorted(liste_priorite)
+        if self.file_objets.taille() == 0 :
+            self.file_objets.enfiler(elm)
+        
+        elif elm.priorite < self.file_objets.queue().priorite and self.file_objets.taille() > 0 :
+            new_file_objets = File()
+            ajoutee = False
+            
+            while self.file_objets.taille() != 0 :
+            
+                temp = self.file_objets.defiler()
+                if temp.priorite >= elm.priorite and not ajoutee :
+                    new_file_objets.enfiler(elm)
+                    ajoutee = True
+                new_file_objets.enfiler(temp)
+            
+            self.file_objets = new_file_objets
 
-        print(liste_priorite,liste)
+        else :
+            self.file_objets.enfiler(elm)
+
+
+    # def trier_objets(self):
+    #     liste = []
+    #     liste_priorite = []
+    #     for i in range(self.pile_objets.taille()):
+    #         elm = self.pile_objets.depiler()
+    #         liste.append(elm)
+    #         liste_priorite.append(elm.priorite)
+    #     sorted(liste_priorite)
+
+    #     print(liste_priorite,liste)
 
         
         
@@ -35,9 +54,8 @@ class Scene :
 
 
 def affiche(screen, Scene_to_print:Scene):
-    Scene_to_print.trier_objets()
-    while not Scene_to_print.pile_objets.pile_est_vide():
-        elm = Scene_to_print.pile_objets.depiler()   
+    while not Scene_to_print.file_objets.file_est_vide():
+        elm = Scene_to_print.file_objets.defiler()   
              
         if elm.radius == None :
             pygame.draw.rect(screen, elm.couleur, elm.position)
