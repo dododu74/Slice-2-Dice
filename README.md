@@ -13,6 +13,14 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 ## Changelog
 
 
+### V2 :
+
+* Création de deux modules différents :
+    * Affichage qui gère une fonction affiche(scène), qui va afficher les élément de la scène.
+    * TAD implémentant différents types de TAD.
+* Le TAD utilisé est une pile qui permettra la mise en place de priorité de lors d'affichage d'une scène, plus le calque est en bas dans la pile, plus il sera affiché au premier plan 
+
+![Pile](Images/calques.jpg)
 
 ### V1 :
 
