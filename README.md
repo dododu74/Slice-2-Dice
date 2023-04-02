@@ -47,8 +47,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 
 
-
-* Permettre le changement de scènes (expérimentalement: par appuie d'une touche)
+* Inclure des images aux scenes. 
 
 *etc...*
 ***

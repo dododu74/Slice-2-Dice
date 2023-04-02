@@ -16,14 +16,14 @@ class Scene :
         self.file_objets = File()
 
     def ajout_elm(self, elm :Rectangles) :
-        if self.file_objets.taille() == 0 :
+        if self.file_objets.file_est_vide() :
             self.file_objets.enfiler(elm)
         
-        elif elm.priorite < self.file_objets.queue().priorite and self.file_objets.taille() > 0 :
+        elif elm.priorite < self.file_objets.queue().priorite :
             new_file_objets = File()
             ajoutee = False
             
-            while self.file_objets.taille() != 0 :
+            while not self.file_objets.file_est_vide() :
             
                 temp = self.file_objets.defiler()
                 if temp.priorite >= elm.priorite and not ajoutee :
@@ -54,9 +54,11 @@ class Scene :
 
 
 def affiche(screen, Scene_to_print:Scene):
+    #screen.fill(Scene_to_print.couleur_fond)
+    print(Scene_to_print.file_objets)
     while not Scene_to_print.file_objets.file_est_vide():
         elm = Scene_to_print.file_objets.defiler()   
-             
+
         if elm.radius == None :
             pygame.draw.rect(screen, elm.couleur, elm.position)
         else :
