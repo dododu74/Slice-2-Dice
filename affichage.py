@@ -1,6 +1,7 @@
 import pygame
 from TAD import *
 
+
 class Rectangles :
     def __init__(self, valeur:str, priorit:int, color:tuple, pos:tuple, radius = None) -> None:
         self.valeur = valeur
@@ -54,11 +55,15 @@ class Scene :
 
 
 def affiche(screen, Scene_to_print:Scene):
-    #screen.fill(Scene_to_print.couleur_fond)
-    print(Scene_to_print.file_objets)
-    while not Scene_to_print.file_objets.file_est_vide():
-        elm = Scene_to_print.file_objets.defiler()   
+    #on va empeicher les effets de bords
+    File_objets = File()
+    for elm in Scene_to_print.file_objets.file :
+        File_objets.enfiler(elm)
 
+    #screen.fill(Scene_to_print.couleur_fond)
+    while not File_objets.file_est_vide():
+        elm = File_objets.defiler()   
+        print (elm.priorite)
         if elm.radius == None :
             pygame.draw.rect(screen, elm.couleur, elm.position)
         else :

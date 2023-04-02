@@ -1,5 +1,6 @@
 import pygame
 from affichage import *
+from time import sleep
 
 Boite1 = Rectangles('Corps', 10,(175, 96, 26), (80,200,40,200))
 Boite2 = Rectangles('Boites Joueurs1', 1, (105, 105, 105), (0, 50, 200, 400))
@@ -41,7 +42,7 @@ image = pygame.transform.scale(image, (400, 100))
 CURRENT_SCENE = scene2
 # Run until the user asks to quit
 while PLAY:
-
+    sleep(2)
     # Did the user click the window close button?
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -56,7 +57,6 @@ while PLAY:
                 CURRENT_SCENE = scene2    
 
 
-    print(CURRENT_SCENE.nom)
     affiche(screen, CURRENT_SCENE)
 
     if CURRENT_SCENE == scene1 :

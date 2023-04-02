@@ -14,7 +14,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ### V4 :
 
-* Création de scènes différentes
+* Création de scènes différentes, "combat" et "menu"
 
 * Implémentation d'un changement de scène par le trigger d'un appuie sur une touche.
 
