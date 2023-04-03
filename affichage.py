@@ -3,12 +3,23 @@ from TAD import *
 
 
 class Rectangles :
-    def __init__(self, valeur:str, priorit:int, color:tuple, pos:tuple, radius = None) -> None:
-        self.valeur = valeur
+    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple) -> None:
+        self.nom = nom
+        self.priorite = priorit
+        self.couleur = color
+        self.position = pos
+    
+class Cercle :
+    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
+        self.nom = nom
         self.priorite = priorit
         self.couleur = color
         self.position = pos
         self.radius = radius
+
+class Image :
+    def __init__(self, nom:str, priorit:int, pos:tuple, root) -> None:
+        pass 
 
 class Scene :
     def __init__(self, nom, couleur_de_fond = (255,255,255)) -> None:
@@ -16,7 +27,7 @@ class Scene :
         self.couleur_fond = couleur_de_fond
         self.file_objets = File()
 
-    def ajout_elm(self, elm :Rectangles) :
+    def ajout_elm(self, elm) :
         if self.file_objets.file_est_vide() :
             self.file_objets.enfiler(elm)
         
@@ -56,15 +67,17 @@ class Scene :
 
 def affiche(screen, Scene_to_print:Scene):
     #on va empeicher les effets de bords
-    File_objets = File()
-    for elm in Scene_to_print.file_objets.file :
-        File_objets.enfiler(elm)
+    File_objets = Scene_to_print.file_objets.copy()
 
     #screen.fill(Scene_to_print.couleur_fond)
     while not File_objets.file_est_vide():
         elm = File_objets.defiler()   
         print (elm.priorite)
-        if elm.radius == None :
+        
+        
+        if isinstance(elm, Rectangles)  :
             pygame.draw.rect(screen, elm.couleur, elm.position)
-        else :
+        elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
+        elif isinstance(elm, Image) :
+            pass
