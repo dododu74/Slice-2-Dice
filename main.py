@@ -18,7 +18,7 @@ scene1.ajout_elm(Rond1)
 
 Boite0 = Rectangles('Fond', 0,(150, 100, 255), (0,0,1000,500))
 Boite1 = Rectangles('Bouton 1', 100, (175, 96, 26), (400,100, 200,40))
-Boite2 = Rectangles('Bouton 2', 19, (175, 96, 26), (440,150, 160,40))
+Boite2 = Rectangles('Bouton 2', 19, (175, 96, 26), (420,150, 160,40))
 scene2 = Scene("Menu", (100,100,100))
 scene2.ajout_elm(Boite0)
 scene2.ajout_elm(Boite1)

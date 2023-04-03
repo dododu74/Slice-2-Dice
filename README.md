@@ -12,6 +12,10 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Changelog
 
+### V5 : 
+
+* Codage d'images dans une scène.
+
 ### V4 :
 
 * Création de scènes différentes, "combat" et "menu".
