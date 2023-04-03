@@ -11,6 +11,12 @@ class File:
             ligne2 += f"{elm} "
         return f"{ligne1}\n{ligne2}\n{ligne1}"
     
+    def copy(self):
+        new_file = File()
+        for i in range (self.taille()-1,-1,-1):
+            new_file.enfiler(self.file[i])
+        return new_file
+
     def file_est_vide(self) -> bool:
         '''Vérifie si la file est vide'''
         return self.file == []

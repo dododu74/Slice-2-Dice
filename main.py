@@ -7,7 +7,7 @@ Boite2 = Rectangles('Boites Joueurs1', 1, (105, 105, 105), (0, 50, 200, 400))
 Boite3 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (800, 50, 200, 400))
 Boite4 = Rectangles('Bras', 10,(175, 96, 26), (30,210,140,20))
 Boite0 = Rectangles('Fond', 0,(255, 255, 255), (0,0,1000,500))
-Rond1 = Rectangles('Tete', 10,(175, 96, 26), (100, 180), 20)
+Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
 scene1 = Scene("Combat", (90, 50, 30))
 scene1.ajout_elm(Boite0)
 scene1.ajout_elm(Boite1)
@@ -36,13 +36,13 @@ pygame.display.set_caption("Slice 2 Dice")
 screen = pygame.display.set_mode([1000, 500])
 
 
-image = pygame.image.load( "Images\Slice_dice.png").convert_alpha()
-image = pygame.transform.scale(image, (400, 100))
+# image = pygame.image.load( "Images\Slice_dice.png").convert_alpha()
+# image = pygame.transform.scale(image, (400, 100))
 
 CURRENT_SCENE = scene2
 # Run until the user asks to quit
 while PLAY:
-    sleep(2)
+    # sleep(2)
     # Did the user click the window close button?
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -58,14 +58,9 @@ while PLAY:
 
     affiche(screen, CURRENT_SCENE)
 
-    if CURRENT_SCENE == scene1 :
-        screen.blit(image, (300,0))
+    # if CURRENT_SCENE == scene1 :
+    #     screen.blit(image, (300,0))
 
-    # pygame.draw.rect(screen, SCENE.objets["Boite3"].couleur, SCENE.objets["Boite3"].position)
-    # pygame.draw.rect(screen, SCENE.objets["Boite2"].couleur, SCENE.objets["Boite2"].position)
-    # pygame.draw.rect(screen, SCENE.objets["Boite1"].couleur, SCENE.objets["Boite1"].position)
-    # pygame.draw.rect(screen, SCENE.objets["Boite4"].couleur, SCENE.objets["Boite4"].position)
-    # pygame.draw.circle(screen, SCENE.objets["Rond1"].couleur, SCENE.objets["Rond1"].position, SCENE.objets["Rond1"].radius)
 
 
     # Flip the display
