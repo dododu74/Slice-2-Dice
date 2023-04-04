@@ -18,8 +18,13 @@ class Cercle :
         self.radius = radius
 
 class Image :
-    def __init__(self, nom:str, priorit:int, pos:tuple, root) -> None:
-        pass 
+    def __init__(self, nom:str, priorit:int, pos:tuple, format, root) -> None:
+        self.nom = nom
+        self.priorite = priorit
+        self.position = pos
+        self.format = format
+        self.root = root
+
 
 class Scene :
     def __init__(self, nom, couleur_de_fond = (255,255,255)) -> None:
@@ -78,4 +83,9 @@ def affiche(screen, Scene_to_print:Scene):
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
         elif isinstance(elm, Image) :
-            pass ### Ajouter image config
+            
+            image = pygame.image.load( elm.root ).convert_alpha()
+            image = pygame.transform.scale(image, elm.format)
+            screen.blit(image, elm.position)
+
+            

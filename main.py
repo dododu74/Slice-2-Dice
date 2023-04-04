@@ -16,13 +16,15 @@ scene1.ajout_elm(Boite3)
 scene1.ajout_elm(Boite4)
 scene1.ajout_elm(Rond1)
 
-Boite0 = Rectangles('Fond', 0,(150, 100, 255), (0,0,1000,500))
-Boite1 = Rectangles('Bouton 1', 100, (175, 96, 26), (400,100, 200,40))
-Boite2 = Rectangles('Bouton 2', 19, (175, 96, 26), (420,150, 160,40))
+# Boite0 = Rectangles('Fond', 0,(150, 100, 255), (0,0,1000,500))
+Boite1 = Rectangles('Bouton 1', 20, (175, 96, 0), (400,300, 200,40))
+Boite2 = Rectangles('Bouton 2', 20, (0, 96, 26), (420,230, 160,40))
+Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Slice_dice.png")
 scene2 = Scene("Menu", (100,100,100))
-scene2.ajout_elm(Boite0)
+# scene2.ajout_elm(Boite0)
 scene2.ajout_elm(Boite1)
 scene2.ajout_elm(Boite2)
+scene2.ajout_elm(Image0)
 
 
 
@@ -36,8 +38,6 @@ pygame.display.set_caption("Slice 2 Dice")
 screen = pygame.display.set_mode([1000, 500])
 
 
-# image = pygame.image.load( "Images\Slice_dice.png").convert_alpha()
-# image = pygame.transform.scale(image, (400, 100))
 
 CURRENT_SCENE = scene2
 # Run until the user asks to quit
@@ -58,8 +58,6 @@ while PLAY:
 
     affiche(screen, CURRENT_SCENE)
 
-    # if CURRENT_SCENE == scene1 :
-    #     screen.blit(image, (300,0))
 
 
 
