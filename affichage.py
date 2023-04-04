@@ -72,12 +72,10 @@ def affiche(screen, Scene_to_print:Scene):
     #screen.fill(Scene_to_print.couleur_fond)
     while not File_objets.file_est_vide():
         elm = File_objets.defiler()   
-        print (elm.priorite)
-        
         
         if isinstance(elm, Rectangles)  :
             pygame.draw.rect(screen, elm.couleur, elm.position)
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
         elif isinstance(elm, Image) :
-            pass
+            pass ### Ajouter image config
