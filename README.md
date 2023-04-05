@@ -52,7 +52,5 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 
 
-* Inclure des images aux scenes. 
-
 *etc...*
 ***
