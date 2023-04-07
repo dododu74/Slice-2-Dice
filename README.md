@@ -50,7 +50,10 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Roadmap, Idées 
 
-
+* Immaginer des attaques
+* Créer une classe joueur :
+    * Créer une foncion affichant les points de vie
+    * Créer sorte d'aléatoire entre les attaques
 
 *etc...*
 ***
