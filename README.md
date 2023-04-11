@@ -15,11 +15,13 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 ### V5 : 
 
 * Codage d'images dans une scène.
+* Rectangles transparents permis
 
-* Création des classes personnages
+* Création de la classe personnage
     * Ajout d'un lien avec les scenes
     * Incorporation de cette classe aux fonctions d'affichage
     * Affichage des classes personnages (cadre, fond, sprite)
+    * Fonction tels que `vie_baisser()` et `vie_aumenter()` ou `mort()` sont ajouté à la classe
 
 * Réarangement des dossiers images :
     * Ajout de nombreux présets d'images poue le dev (Sprite)
