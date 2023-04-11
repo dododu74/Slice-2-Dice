@@ -17,6 +17,14 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 * Codage d'images dans une scène.
 
 * Création des classes personnages
+    * Ajout d'un lien avec les scenes
+    * Incorporation de cette classe aux fonctions d'affichage
+    * Affichage des classes personnages (cadre, fond, sprite)
+
+* Réarangement des dossiers images :
+    * Ajout de nombreux présets d'images poue le dev (Sprite)
+    * Ajout d'images de backgrouds (Background)
+    * Déplacement des images de documentation (Documentation)
 
 ### V4 :
 
