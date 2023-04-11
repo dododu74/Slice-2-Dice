@@ -1,14 +1,16 @@
 import pygame
 from affichage import *
 from personnage import *
-from time import sleep
+# from time import sleep
+from random import randint
 
 
 scene_combat, scene_menu  = init_scene()
 
 
 for i in range (5):
-    scene_combat.ajout_elm(Personnage())
+    root = "Images\Sprites\PropsInPixels_16x" + str(randint(1,172)) + ".png"
+    scene_combat.ajout_elm(Personnage(root))
 
 pygame.init()
 PLAY = True
@@ -20,6 +22,7 @@ CURRENT_SCENE = scene_combat
 # Run until the user asks to quit
 while PLAY:
     # sleep(2)
+    
     # Did the user click the window close button?
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

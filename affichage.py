@@ -7,20 +7,26 @@ from TAD import *
 def init_scene():
     # Scene de Combat
     Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images\Background\Cloudy_Mountains.png")
-    Boite2 = Rectangles('Boites Joueurs1', 1, (105, 105, 105), (0, 50, 300, 400))
-    Boite3 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (700, 50, 300, 400))
 
+    Boite1 = Rectangles('Boites Joueurs1', 1, (105, 105, 105, 125), (0, 50, 300, 400))    # On définis un rectangle 
+    Boite1A = Trans_Rectangles(Boite1, 200)                                               # Et on lui rajoute sa valeure Alpha, de transparence.
+
+    Boite2 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (700, 50, 300, 400))
+    Boite2A = Trans_Rectangles(Boite2, 200)
     # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
     scene1 = Scene("Combat")
     scene1.ajout_elm(Boite0)
-    scene1.ajout_elm(Boite2)
-    scene1.ajout_elm(Boite3)
+    scene1.ajout_elm(Boite1A)
+    scene1.ajout_elm(Boite2A)
 
     # scene1.ajout_elm(Rond1)
 
     # Scene de Menu
     Boite1 = Rectangles('Bouton 1', 20, (175, 96, 0), (400,300, 200,40))
+
     Boite2 = Rectangles('Bouton 2', 20, (0, 96, 26), (420,230, 160,40))
+
+
     Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Background/Menu.png")
     scene2 = Scene("Menu")
     # scene2.ajout_elm(Boite0)
@@ -30,13 +36,21 @@ def init_scene():
 
     return scene1 , scene2 
 
+
+
 class Rectangles :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple) -> None:
         self.nom = nom
         self.priorite = priorit
         self.couleur = color
         self.position = pos
-    
+
+class Trans_Rectangles : 
+    def __init__(self, rectangle:Rectangles, alpha_lv):
+        self.Rectangle = rectangle
+        self.alpha_lv = alpha_lv
+        self.priorite = rectangle.priorite
+            
 class Cercle :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
         self.nom = nom
@@ -117,13 +131,20 @@ def affiche(screen, Scene_to_print:Scene):
         
         if isinstance(elm, Rectangles)  :
             pygame.draw.rect(screen, elm.couleur, elm.position)
+        elif isinstance(elm, Trans_Rectangles) :
+            positions = elm.Rectangle.position[:]
+            s = pygame.Surface(positions[2:])   # On entre les valeures de la position
+            s.set_alpha(elm.alpha_lv)           # La valeur alpha
+            s.fill(elm.Rectangle.couleur)       # Ensuite on lui met ça couleur
+            screen.blit(s, positions[:2])       # Et on la pose à des coordonnées sur l'écran
+
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
         elif isinstance(elm, Image) :
             image = pygame.image.load( elm.root ).convert_alpha()
             image = pygame.transform.scale(image, elm.format)
             screen.blit(image, elm.position)
-    
+
     # On affiche maintenant les personnages
     for i in range(len(Scene_to_print.perso)):
 
