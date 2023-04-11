@@ -131,7 +131,7 @@ def affiche(screen, Scene_to_print:Scene):
         
         if isinstance(elm, Rectangles)  :           # Sans transparence
             pygame.draw.rect(screen, elm.couleur, elm.position)
-            
+
         elif isinstance(elm, Trans_Rectangles) :    # Avec transparence
             positions = elm.Rectangle.position[:]
             s = pygame.Surface(positions[2:])   # On entre les valeures de la position
@@ -166,4 +166,9 @@ def affiche_perso(screen, perso:Personnage, emplacement):
     image = pygame.image.load(perso.image_root).convert_alpha()
     image = pygame.transform.scale(image, (40, 40))
     screen.blit(image, (pos_x + 5, pos_y + 5))
+    # On ajoute des éléments visuels si le personnage est mort
+    if not perso.en_vie:
+        pygame.draw.polygon(screen, (100,0,0,125), ((pos_x, pos_y), (pos_x + longeur, pos_y + largeur), (pos_x + longeur, pos_y), (pos_x, pos_y + largeur)), 5)
+
+    
 

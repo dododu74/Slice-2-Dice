@@ -29,11 +29,12 @@ while PLAY:
             PLAY = False
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                CURRENT_SCENE = scene_combat
+            if event.key == pygame.K_DOWN:
+                CURRENT_SCENE.perso[0][0].vie_baisser(100)
+
 
             if event.key == pygame.K_RIGHT:
-                CURRENT_SCENE = scene_menu    
+                pass
 
 
 
