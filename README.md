@@ -4,7 +4,7 @@
 
 Je veux faire un jeu de team building à la façon de *Slice & Dice*. En utilisant Pygame.
 
-![Slice & Dice](Images/Slice_dice_Titre.png)
+![Slice & Dice](Images/Documentation/Slice_dice_Titre.png)
 
 ## Fonctionnalités 
 
@@ -15,6 +15,8 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 ### V5 : 
 
 * Codage d'images dans une scène.
+
+* Création des classes personnages
 
 ### V4 :
 
@@ -41,7 +43,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
     * TAD implémentant différents types de TAD.
 * Le TAD utilisé est une pile qui permettra la mise en place de priorité/ordre d'affichage dse éléments d'une scène, plus le calque est en bas dans la pile, plus il sera affiché au premier plan, donc en dernier **FILO** (*First In Last Out*)
 
-![Pile](Images/calques.jpg)
+![Pile](Images/Documentation/calques.jpg)
 
 ### V1 :
 

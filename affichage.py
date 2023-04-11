@@ -1,6 +1,34 @@
 import pygame
+from personnage import *
 from TAD import *
 
+
+
+def init_scene():
+    # Scene de Combat
+    Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images\Background\Cloudy_Mountains.png")
+    Boite2 = Rectangles('Boites Joueurs1', 1, (105, 105, 105), (0, 50, 300, 400))
+    Boite3 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (700, 50, 300, 400))
+
+    # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
+    scene1 = Scene("Combat")
+    scene1.ajout_elm(Boite0)
+    scene1.ajout_elm(Boite2)
+    scene1.ajout_elm(Boite3)
+
+    # scene1.ajout_elm(Rond1)
+
+    # Scene de Menu
+    Boite1 = Rectangles('Bouton 1', 20, (175, 96, 0), (400,300, 200,40))
+    Boite2 = Rectangles('Bouton 2', 20, (0, 96, 26), (420,230, 160,40))
+    Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Background/Menu.png")
+    scene2 = Scene("Menu")
+    # scene2.ajout_elm(Boite0)
+    scene2.ajout_elm(Boite1)
+    scene2.ajout_elm(Boite2)
+    scene2.ajout_elm(Image0)
+
+    return scene1 , scene2 
 
 class Rectangles :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple) -> None:
@@ -27,31 +55,38 @@ class Image :
 
 
 class Scene :
-    def __init__(self, nom, couleur_de_fond = (255,255,255)) -> None:
+    def __init__(self, nom) -> None:
         self.nom = nom
-        self.couleur_fond = couleur_de_fond
         self.file_objets = File()
 
     def ajout_elm(self, elm) :
-        if self.file_objets.file_est_vide() :
-            self.file_objets.enfiler(elm)
-        
-        elif elm.priorite < self.file_objets.queue().priorite :
-            new_file_objets = File()
-            ajoutee = False
-            
-            while not self.file_objets.file_est_vide() :
-            
-                temp = self.file_objets.defiler()
-                if temp.priorite >= elm.priorite and not ajoutee :
-                    new_file_objets.enfiler(elm)
-                    ajoutee = True
-                new_file_objets.enfiler(temp)
-            
-            self.file_objets = new_file_objets
+        # On ajoute un personnage a la scène.
+        if  isinstance(elm, Personnage):
+            pass
 
+
+        # On ajoute des recanges, ronds ou image a la scène
         else :
-            self.file_objets.enfiler(elm)
+            
+            if self.file_objets.file_est_vide() :
+                self.file_objets.enfiler(elm)
+            
+            elif elm.priorite < self.file_objets.queue().priorite :
+                new_file_objets = File()
+                ajoutee = False
+                
+                while not self.file_objets.file_est_vide() :
+                
+                    temp = self.file_objets.defiler()
+                    if temp.priorite >= elm.priorite and not ajoutee :
+                        new_file_objets.enfiler(elm)
+                        ajoutee = True
+                    new_file_objets.enfiler(temp)
+                
+                self.file_objets = new_file_objets
+
+            else :
+                self.file_objets.enfiler(elm)
 
 
     # def trier_objets(self):
@@ -83,9 +118,16 @@ def affiche(screen, Scene_to_print:Scene):
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
         elif isinstance(elm, Image) :
-            
             image = pygame.image.load( elm.root ).convert_alpha()
             image = pygame.transform.scale(image, elm.format)
             screen.blit(image, elm.position)
+        
 
-            
+def affiche_perso(screen, perso:Personnage, emplacement):
+    pos_x = 20
+    pos_y = 75 * emplacement 
+    longeur = 250
+    largeur = 50
+    pygame.draw.rect(screen, (150,150,150), (pos_x, pos_y, longeur, largeur), 0  ,  15)
+    pygame.draw.rect(screen, (0,0,0), (pos_x, pos_y, longeur, largeur), 5  ,  15)
+
