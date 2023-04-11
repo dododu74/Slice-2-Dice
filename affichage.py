@@ -58,12 +58,14 @@ class Scene :
     def __init__(self, nom) -> None:
         self.nom = nom
         self.file_objets = File()
+        self.perso = []
+        self.perso_compteur = 0
 
     def ajout_elm(self, elm) :
         # On ajoute un personnage a la scène.
         if  isinstance(elm, Personnage):
-            pass
-
+            self.perso_compteur += 1
+            self.perso.append((elm,self.perso_compteur))
 
         # On ajoute des recanges, ronds ou image a la scène
         else :
@@ -106,7 +108,7 @@ class Scene :
 
 
 def affiche(screen, Scene_to_print:Scene):
-    #on va empeicher les effets de bords
+    #on va empecher les effets de bords
     File_objets = Scene_to_print.file_objets.copy()
 
     #screen.fill(Scene_to_print.couleur_fond)
@@ -121,6 +123,12 @@ def affiche(screen, Scene_to_print:Scene):
             image = pygame.image.load( elm.root ).convert_alpha()
             image = pygame.transform.scale(image, elm.format)
             screen.blit(image, elm.position)
+    
+    # On affiche maintenant les personnages
+    for i in range(len(Scene_to_print.perso)):
+
+        affiche_perso(screen, Scene_to_print.perso[i][0], Scene_to_print.perso[i][1])
+
         
 
 def affiche_perso(screen, perso:Personnage, emplacement):
@@ -128,6 +136,11 @@ def affiche_perso(screen, perso:Personnage, emplacement):
     pos_y = 75 * emplacement 
     longeur = 250
     largeur = 50
+    # On affiche le cadre dédié au personnage
     pygame.draw.rect(screen, (150,150,150), (pos_x, pos_y, longeur, largeur), 0  ,  15)
     pygame.draw.rect(screen, (0,0,0), (pos_x, pos_y, longeur, largeur), 5  ,  15)
+    # On affiche l'image du personnage
+    image = pygame.image.load(perso.image_root).convert_alpha()
+    image = pygame.transform.scale(image, (40, 40))
+    screen.blit(image, (pos_x + 5, pos_y + 5))
 
