@@ -129,9 +129,10 @@ def affiche(screen, Scene_to_print:Scene):
     while not File_objets.file_est_vide():
         elm = File_objets.defiler()   
         
-        if isinstance(elm, Rectangles)  :
+        if isinstance(elm, Rectangles)  :           # Sans transparence
             pygame.draw.rect(screen, elm.couleur, elm.position)
-        elif isinstance(elm, Trans_Rectangles) :
+            
+        elif isinstance(elm, Trans_Rectangles) :    # Avec transparence
             positions = elm.Rectangle.position[:]
             s = pygame.Surface(positions[2:])   # On entre les valeures de la position
             s.set_alpha(elm.alpha_lv)           # La valeur alpha
@@ -140,6 +141,7 @@ def affiche(screen, Scene_to_print:Scene):
 
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)
+
         elif isinstance(elm, Image) :
             image = pygame.image.load( elm.root ).convert_alpha()
             image = pygame.transform.scale(image, elm.format)
