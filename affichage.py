@@ -2,9 +2,13 @@ import pygame
 from personnage import *
 from TAD import *
 
+if __name__ == '__main__':
+    pygame.init()
 
+base_police = pygame.font.Font("Data/JoganSoft.otf",40)
 
 def init_scene():
+
     # Scene de Combat
     Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images\Background\Cloudy_Mountains.png")
 
@@ -13,29 +17,30 @@ def init_scene():
 
     Boite2 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (700, 50, 300, 400))
     Boite2A = Trans_Rectangles(Boite2, 200)
-    # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
+    
     scene1 = Scene("Combat")
     scene1.ajout_elm(Boite0)
     scene1.ajout_elm(Boite1A)
     scene1.ajout_elm(Boite2A)
-
+    # Exemple de cercles
+    # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
     # scene1.ajout_elm(Rond1)
 
     # Scene de Menu
-    Boite1 = Rectangles('Bouton 1', 20, (175, 96, 0), (400,300, 200,40))
-
-    Boite2 = Rectangles('Bouton 2', 20, (0, 96, 26), (420,230, 160,40))
-
+    scene2 = Scene("Menu")
+    
+    
+    Boite1 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
+    Bouton1 = Bouton("Jouer", Boite1)
+    scene2.ajout_elm(Bouton1)
+    
+    Boite2 = Rectangles('Bouton 2', 20, (175, 96, 0), (400,300, 200,40))
+    scene2.ajout_elm(Boite2)
 
     Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Background/Menu.png")
-    scene2 = Scene("Menu")
-    # scene2.ajout_elm(Boite0)
-    scene2.ajout_elm(Boite1)
-    scene2.ajout_elm(Boite2)
     scene2.ajout_elm(Image0)
 
     return scene1 , scene2 
-
 
 
 class Rectangles :
@@ -50,6 +55,18 @@ class Trans_Rectangles :
         self.Rectangle = rectangle
         self.alpha_lv = alpha_lv
         self.priorite = rectangle.priorite
+
+class Bouton :
+    def __init__(self, text, rectangle:Rectangles):
+        self.Rectangle = pygame.Rect(rectangle.position)
+        self.priorite = rectangle.priorite
+        self.couleur = rectangle.couleur
+        self.nom = rectangle.nom
+
+        # Initialisation du texte
+        self.text_surface = base_police.render(text,False,"black")
+        self.text_rectangle = self.text_surface.get_rect(center = self.Rectangle.center)
+
             
 class Cercle :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
@@ -132,7 +149,8 @@ def affiche(screen, Scene_to_print:Scene) -> None :
     #on va empecher les effets de bords
     File_objets = Scene_to_print.file_objets.copy()
 
-    #screen.fill(Scene_to_print.couleur_fond)
+
+    # On défile la file d'affichage, et on affiche les éléments selon leurs types
     while not File_objets.file_est_vide():
         elm = File_objets.defiler()   
         
@@ -145,6 +163,10 @@ def affiche(screen, Scene_to_print:Scene) -> None :
             s.set_alpha(elm.alpha_lv)           # La valeur alpha
             s.fill(elm.Rectangle.couleur)       # Ensuite on lui met ça couleur
             screen.blit(s, positions[:2])       # Et on la pose à des coordonnées sur l'écran
+
+        elif isinstance(elm, Bouton):
+            pygame.draw.rect(screen, elm.couleur, elm.Rectangle)
+            screen.blit(elm.text_surface, elm.text_rectangle)
 
         elif isinstance(elm, Cercle) :
             pygame.draw.circle(screen, elm.couleur, elm.position, elm.radius)

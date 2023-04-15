@@ -1,4 +1,3 @@
-
 class Personnage():
     def __init__(self, image_root="Images\Sprites\PropsInPixels_16x60.png"):
         self.en_vie = True

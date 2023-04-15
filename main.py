@@ -1,4 +1,6 @@
 import pygame
+pygame.init()
+
 from affichage import *
 from personnage import *
 # from time import sleep
@@ -16,9 +18,8 @@ for i in range(3):
     root = "Images\Sprites\PropsInPixels_16x70.png"
     scene_combat.ajout_elm(Ennemi(root))
 
-pygame.init()
-PLAY = True
 
+PLAY = True
 pygame.display.set_caption("Slice 2 Dice")
 screen = pygame.display.set_mode([1000, 500])
 
