@@ -12,7 +12,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Changelog
 
-### V5 : 
+### V0.5 : 
 
 * Codage d'images dans une scène.
 * Rectangles transparents permis
@@ -31,7 +31,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
     * Ajout d'images de backgrouds (Background)
     * Déplacement des images de documentation (Documentation)
 
-### V4 :
+### V0.4 :
 
 * Création de scènes différentes, "combat" et "menu".
 
@@ -39,7 +39,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
     * Permettre un changement instantané et avec les scènes affichés correctement.
 
 
-### V3 :
+### V0.3 :
 
 * Changement de TAD pour l'affichage, utilisation d'une file pour afficher le premier élément, que l'on aurai introduit en premier dans la file, **FIFO** (*First In First Out*)
 
@@ -49,7 +49,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 
 
-### V2 :
+### V0.2 :
 
 * Création de deux modules différents :
     * Affichage qui gère une fonction affiche(scène), qui va afficher les élément de la scène.
@@ -58,17 +58,22 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ![Pile](Images/Documentation/calques.jpg)
 
-### V1 :
+### V0.1 :
 
 * Le programme est en mesure d'ouvrir une fenêtre et de la fermer
 * On code des rectangles qui vont être définis/positionnés par la scène 1, on implémente la class Rectangle et Scène.
 
 ## Roadmap, Idées 
 
+* Finnaliser le menu
+    * Ajout d'une classe bouton
+
+
 * Immaginer des attaques
-* Créer une classe joueur :
+* Créer une classe personnages :
     * Créer une foncion affichant les points de vie
-    * Créer sorte d'aléatoire entre les attaques
+    * Créer les attaques liées aux personnages
+
 
 *etc...*
 ***
