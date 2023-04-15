@@ -21,10 +21,13 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
     * Ajout d'un lien avec les scenes
     * Incorporation de cette classe aux fonctions d'affichage
     * Affichage des classes personnages (cadre, fond, sprite)
-    * Fonction tels que `vie_baisser()` et `vie_aumenter()` ou `mort()` sont ajouté à la classe
+    * Fonction tels que `set_vie()`, `vie_baisser()` et `vie_aumenter()` ou `mort()` sont ajouté à la classe
+
+* Création de la classe ennemi qui est similaire à la classe personnage.
+    * Affichage des ennemis possible
 
 * Réarangement des dossiers images :
-    * Ajout de nombreux présets d'images poue le dev (Sprite)
+    * Ajout de nombreux présets d'images poue le dev (Sprite) et pour mettre une image aux personnages
     * Ajout d'images de backgrouds (Background)
     * Déplacement des images de documentation (Documentation)
 

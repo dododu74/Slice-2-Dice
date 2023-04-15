@@ -7,10 +7,14 @@ from random import randint
 
 scene_combat, scene_menu  = init_scene()
 
-
+# On ajoute des personnages à la scène de combat
 for i in range (5):
     root = "Images\Sprites\PropsInPixels_16x" + str(randint(1,172)) + ".png"
     scene_combat.ajout_elm(Personnage(root))
+
+for i in range(3):
+    root = "Images\Sprites\PropsInPixels_16x70.png"
+    scene_combat.ajout_elm(Ennemi(root))
 
 pygame.init()
 PLAY = True
@@ -29,14 +33,17 @@ while PLAY:
             PLAY = False
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                CURRENT_SCENE.perso[0][0].vie_baisser(100)
+            
+            if CURRENT_SCENE.nom == "Combat":
+                if event.key == pygame.K_DOWN:
+                    CURRENT_SCENE.perso[0][0].vie_baisser(100)
 
+
+            if event.key == pygame.K_LEFT:
+                CURRENT_SCENE = scene_combat
 
             if event.key == pygame.K_RIGHT:
-                pass
-
-
+                CURRENT_SCENE = scene_menu
 
     affiche(screen, CURRENT_SCENE)
 
