@@ -23,7 +23,7 @@ PLAY = True
 pygame.display.set_caption("Slice 2 Dice")
 screen = pygame.display.set_mode([1000, 500])
 
-CURRENT_SCENE = scene_combat
+CURRENT_SCENE = scene_menu
 # Run until the user asks to quit
 while PLAY:
     # sleep(2)
@@ -40,12 +40,23 @@ while PLAY:
                     CURRENT_SCENE.perso[0][0].vie_baisser(100)
 
 
-            if event.key == pygame.K_LEFT:
-                CURRENT_SCENE = scene_combat
-
             if event.key == pygame.K_RIGHT:
                 CURRENT_SCENE = scene_menu
 
+        
+        for bouton in CURRENT_SCENE.file_objets.file:
+            if isinstance(bouton, Bouton):
+
+                if bouton.bouton_sous_souris():
+                    bouton.couleur_temp = (bouton.couleur[0]+10, bouton.couleur[1]+10, bouton.couleur[2]+10)
+
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        CURRENT_SCENE = scene_combat
+                
+                else : 
+                    bouton.couleur_temp = (bouton.couleur[0]-10, bouton.couleur[1]-10, bouton.couleur[2]-10)
+
+    
     affiche(screen, CURRENT_SCENE)
 
     # Flip the display

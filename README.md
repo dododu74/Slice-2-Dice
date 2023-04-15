@@ -14,7 +14,9 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ### V0.6 : 
 
-* 
+* Ajouts des boutons, pour le menu
+    * Création d'un effet de survol de la souris quand elle passe sur le bouton
+    
 
 ### V0.5 : 
 

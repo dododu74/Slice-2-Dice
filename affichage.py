@@ -61,11 +61,18 @@ class Bouton :
         self.Rectangle = pygame.Rect(rectangle.position)
         self.priorite = rectangle.priorite
         self.couleur = rectangle.couleur
+        self.couleur_temp = rectangle.couleur
         self.nom = rectangle.nom
 
         # Initialisation du texte
         self.text_surface = base_police.render(text,False,"black")
         self.text_rectangle = self.text_surface.get_rect(center = self.Rectangle.center)
+    
+    def bouton_sous_souris(self):
+        souris_pos = pygame.mouse.get_pos()
+        if self.Rectangle.collidepoint(souris_pos) :
+            return True
+
 
             
 class Cercle :
@@ -165,7 +172,7 @@ def affiche(screen, Scene_to_print:Scene) -> None :
             screen.blit(s, positions[:2])       # Et on la pose à des coordonnées sur l'écran
 
         elif isinstance(elm, Bouton):
-            pygame.draw.rect(screen, elm.couleur, elm.Rectangle)
+            pygame.draw.rect(screen, elm.couleur_temp, elm.Rectangle)
             screen.blit(elm.text_surface, elm.text_rectangle)
 
         elif isinstance(elm, Cercle) :
