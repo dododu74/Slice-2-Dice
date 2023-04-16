@@ -11,11 +11,12 @@ scene_combat, scene_menu  = init_scene()
 
 # On ajoute des personnages à la scène de combat
 for i in range (5):
-    root = "Images\Sprites\PropsInPixels_16x" + str(randint(1,172)) + ".png"
+    alea = str (randint(0,1)) + str(randint(1,9))
+    root = "Images\Personnage\p_" + alea + ".png"
     scene_combat.ajout_elm(Personnage(root))
 
 for i in range(3):
-    root = "Images\Sprites\PropsInPixels_16x70.png"
+    root = "Images\Personnage\e_01.png"
     scene_combat.ajout_elm(Ennemi(root))
 
 
