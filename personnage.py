@@ -24,7 +24,10 @@ class Personnage():
     def mort(self):
         self.en_vie = False
         self.image_root_avant = self.image_root
-        self.image_root = "Images\Sprites\PropsInPixels_16x70.png"
+        self.image_root = "Images\Etat\mort.png"
+
+    def est_en_vie(self):
+        return self.en_vie
 
 class Ennemi():
     def __init__(self, image_root="Images\Sprites\PropsInPixels_16x70.png"):
@@ -52,4 +55,7 @@ class Ennemi():
     def mort(self):
         self.en_vie = False
         self.image_root_avant = self.image_root
-        self.image_root = "Images\Sprites\PropsInPixels_16x70.png"
+        self.image_root = "Images\Etat\mort.png"
+
+    def est_en_vie(self):
+        return self.en_vie

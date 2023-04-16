@@ -37,7 +37,7 @@ while PLAY:
             
             if CURRENT_SCENE.nom == "Combat":
                 if event.key == pygame.K_DOWN:
-                    CURRENT_SCENE.perso[0][0].vie_baisser(100)
+                    CURRENT_SCENE.perso[0].vie_baisser(100)
 
 
             if event.key == pygame.K_RIGHT:
@@ -57,7 +57,7 @@ while PLAY:
                     bouton.couleur_temp = (bouton.couleur[0]-10, bouton.couleur[1]-10, bouton.couleur[2]-10)
 
     
-    affiche(screen, CURRENT_SCENE)
+    CURRENT_SCENE.affiche(screen)
 
     # Flip the display
     pygame.display.flip()
