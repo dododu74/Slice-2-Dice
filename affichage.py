@@ -192,8 +192,15 @@ class Scene :
         if not self.perso[i].est_en_vie():
             pygame.draw.polygon(screen, (100,0,0,125), ((pos_x, pos_y), (pos_x + longeur, pos_y + largeur), (pos_x + longeur, pos_y), (pos_x, pos_y + largeur)), 5)
 
+        else :
+
+            # On affiche les points de vie du personnage
+            self.perso[i].affiche_pts_vie(screen, (pos_x, pos_y))
+
+
         if i + 1 < len(self.perso) :
             self.affiche_perso(screen, i+1)
+
 
     def affiche_ennemi(self, screen, i = 0):
         pos_x = 720
@@ -209,13 +216,21 @@ class Scene :
         image = pygame.image.load(self.ennemi[i].image_root).convert_alpha()
         image = pygame.transform.scale(image, (40, 40))
         screen.blit(image, (pos_x + 5, pos_y + 5))
-        
+
         # On ajoute des éléments visuels si le personnage est mort
         if not self.ennemi[i].est_en_vie():
             pygame.draw.polygon(screen, (100,0,0,125), ((pos_x, pos_y), (pos_x + longeur, pos_y + largeur), (pos_x + longeur, pos_y), (pos_x, pos_y + largeur)), 5)
 
+        else :
+
+            # On affiche les points de vie du personnage sinon
+            self.ennemi[i].affiche_pts_vie(screen, (pos_x, pos_y))
+
+
         if i + 1 < len(self.ennemi) :
             self.affiche_ennemi(screen, i+1)
+
+
 
     # def trier_objets(self):
     #     liste = []

@@ -11,13 +11,14 @@ scene_combat, scene_menu  = init_scene()
 
 # On ajoute des personnages à la scène de combat
 for i in range (5):
-    alea = str (randint(0,1)) + str(randint(1,9))
+    alea = str (randint(0,1)) + str(randint(1,8))
     root = "Images\Personnage\p_" + alea + ".png"
     scene_combat.ajout_elm(Personnage(root))
 
 for i in range(3):
     root = "Images\Personnage\e_01.png"
-    scene_combat.ajout_elm(Ennemi(root))
+    scene_combat.ajout_elm(Ennemi(root, randint(1,22)))
+
 
 
 PLAY = True
@@ -38,7 +39,7 @@ while PLAY:
             
             if CURRENT_SCENE.nom == "Combat":
                 if event.key == pygame.K_DOWN:
-                    CURRENT_SCENE.perso[0].vie_baisser(100)
+                    CURRENT_SCENE.perso[0].vie_baisser(1)
 
 
             if event.key == pygame.K_RIGHT:
