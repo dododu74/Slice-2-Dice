@@ -1,11 +1,17 @@
 import pygame
-class Personnage():
+from action import *
+
+class Personnage:
     def __init__(self, image_root="Images\Sprites\PropsInPixels_16x60.png", max_hp = 10):
         self.en_vie = True
         self.pts_vie = max_hp
         self.pts_vie_max = max_hp
         self.image_root = image_root
-    
+
+        # Attaques du personnage
+        self.action = Capacite()
+
+
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
         self.pts_vie = vie
@@ -59,6 +65,9 @@ class Personnage():
             if i+j == 9 or i+j == 19 :
                 pos_x = position[0] + 50
                 pos_y += 10
+
+    def set_capacite(self,new_capacite:Capacite):
+        self.capacite = new_capacite
 
 
 class Ennemi():

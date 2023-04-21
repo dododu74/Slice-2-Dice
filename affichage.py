@@ -1,14 +1,30 @@
 import pygame
 from personnage import *
 from TAD import *
+from random import randint
 
 if __name__ == '__main__':
     pygame.init()
 
 base_police = pygame.font.Font("Data/JoganSoft.otf",40)
 
-def init_scene():
+def init_scene_menu():
+    # Scene de Menu
+    scene = Scene("Menu")
 
+    Boite1 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
+    Bouton1 = Bouton("Jouer", Boite1)
+    scene.ajout_elm(Bouton1)
+
+    Boite2 = Rectangles('Bouton 2', 20, (175, 96, 0), (400,300, 200,40))
+    scene.ajout_elm(Boite2)
+
+    Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Background/Menu.png")
+    scene.ajout_elm(Image0)
+
+    return scene 
+
+def init_scene_combat():
     # Scene de Combat
     Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images\Background\Cloudy_Mountains.png")
 
@@ -18,29 +34,30 @@ def init_scene():
     Boite2 = Rectangles('Boites Joueurs2', 1,(105, 105, 105), (700, 50, 300, 400))
     Boite2A = Trans_Rectangles(Boite2, 200)
     
-    scene1 = Scene("Combat")
-    scene1.ajout_elm(Boite0)
-    scene1.ajout_elm(Boite1A)
-    scene1.ajout_elm(Boite2A)
+    scene = Scene("Combat")
+    scene.ajout_elm(Boite0)
+    scene.ajout_elm(Boite1A)
+    scene.ajout_elm(Boite2A)
     # Exemple de cercles
     # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
     # scene1.ajout_elm(Rond1)
 
-    # Scene de Menu
-    scene2 = Scene("Menu")
     
-    
-    Boite1 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
-    Bouton1 = Bouton("Jouer", Boite1)
-    scene2.ajout_elm(Bouton1)
-    
-    Boite2 = Rectangles('Bouton 2', 20, (175, 96, 0), (400,300, 200,40))
-    scene2.ajout_elm(Boite2)
+    # On ajoute des personnages à la scène
+    for i in range (5):
+        alea = str (randint(0,1)) + str(randint(1,8))
+        personnage = Personnage("Images\Personnage\p_" + alea + ".png")
+        personnage.set_capacite({'1':Atk_epee(1),'2':Atk_epee(1),'3':Atk_epee(1),'4':Atk_epee(2)})
+        scene.ajout_elm(personnage)
 
-    Image0 = Image('Fond',0, (0,0), (1000,500), "Images/Background/Menu.png")
-    scene2.ajout_elm(Image0)
+    # On ajoute des ennemis à la scène
+    for i in range(3):
+        root = "Images\Personnage\e_01.png"
+        scene.ajout_elm(Ennemi(root, randint(1,22)))
 
-    return scene1 , scene2 
+
+    return scene
+
 
 
 class Rectangles :
