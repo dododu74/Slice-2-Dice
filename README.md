@@ -12,6 +12,11 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Changelog
 
+### V0.7 :
+
+* Ajout d'un outil pour extraire les images d'attaques au tileset
+
+
 ### V0.6 : 
 
 * Ajouts des boutons, pour le menu
