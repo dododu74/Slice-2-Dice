@@ -13,7 +13,12 @@ def init_scene_menu():
     scene = Scene("Menu")
 
     Boite1 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
-    Bouton1 = Bouton("Jouer", Boite1)
+    code1= """
+from affichage import init_scene_combat
+CURRENT_SCENE = init_scene_combat()
+"""
+    Bouton1 = Bouton("Jouer", Boite1, code1)
+    
     scene.ajout_elm(Bouton1)
 
     Boite2 = Rectangles('Bouton 2', 20, (175, 96, 0), (400,300, 200,40))
@@ -38,6 +43,14 @@ def init_scene_combat():
     scene.ajout_elm(Boite0)
     scene.ajout_elm(Boite1A)
     scene.ajout_elm(Boite2A)
+
+    Boite3 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
+    code3 = """
+CURRENT_SCENE.etat += 1
+"""
+    Bouton3 = Bouton("Passer", Boite3, code3)
+    scene.ajout_elm(Bouton3)
+
     # Exemple de cercles
     # Rond1 = Cercle('Tete', 10,(175, 96, 26), (100, 180), 20)
     # scene1.ajout_elm(Rond1)
@@ -54,7 +67,6 @@ def init_scene_combat():
     for i in range(3):
         root = "Images\Personnage\e_01.png"
         scene.ajout_elm(Ennemi(root, randint(1,22)))
-
 
     return scene
 
@@ -74,12 +86,13 @@ class Trans_Rectangles :
         self.priorite = rectangle.priorite
 
 class Bouton :
-    def __init__(self, text, rectangle:Rectangles):
+    def __init__(self, text, rectangle:Rectangles, code_to_execute:str):
         self.Rectangle = pygame.Rect(rectangle.position)
         self.priorite = rectangle.priorite
         self.couleur = rectangle.couleur
         self.couleur_temp = rectangle.couleur
         self.nom = rectangle.nom
+        self.code = code_to_execute
 
         # Initialisation du texte
         self.text_surface = base_police.render(text,False,"black")
@@ -90,7 +103,16 @@ class Bouton :
         if self.Rectangle.collidepoint(souris_pos) :
             return True
 
+    def executer(self,CURRENT_SCENE):
 
+        # La fonction nécessite un dictionnaire de sortie pour les variables
+        variables = {"CURRENT_SCENE":CURRENT_SCENE}
+
+        # Execution du code STR du bouton
+        exec(self.code, variables)
+
+        # On prend en compte les changements du bouton
+        return variables["CURRENT_SCENE"]
             
 class Cercle :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
@@ -116,6 +138,7 @@ class Scene :
         # On ajoute les variable qui vont gérer les joueurs et ennemis en jeux.
         self.perso = []
         self.ennemi = []
+        self.etat = 0
 
     def ajout_elm(self, elm) :
         # On ajoute un personnage a la scène.
@@ -188,7 +211,7 @@ class Scene :
 
             self.affiche_ennemi(screen)
 
-
+        self.tour(screen)
 
     def affiche_perso(self, screen, i = 0):
         pos_x = 20
@@ -218,7 +241,6 @@ class Scene :
         if i + 1 < len(self.perso) :
             self.affiche_perso(screen, i+1)
 
-
     def affiche_ennemi(self, screen, i = 0):
         pos_x = 720
         pos_y = 75 + 75 * i 
@@ -247,6 +269,24 @@ class Scene :
         if i + 1 < len(self.ennemi) :
             self.affiche_ennemi(screen, i+1)
 
+    def tour(self, screen, i = 0) -> None :
+        if self.etat ==  0 :
+            return None
+        elif self.etat == 1 :
+
+            for i in range(len(self.perso)) :
+                pos_x = 150
+                pos_y = 75 + 75 * i
+                longeur = 30
+                largeur = 30
+
+                self.perso[i].affiche_action(screen, (pos_x, pos_y, longeur, largeur) )
+
+        elif self.etat == 2 :
+            pass # Tour des ennemis
+
+        else :
+            self.etat = 0
 
 
     # def trier_objets(self):

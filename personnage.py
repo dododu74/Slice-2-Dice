@@ -11,7 +11,7 @@ class Capacite :
         self.capacite = base_cap
 
     def alea_cap(self) :
-        i = randint(len(self.capacite))
+        i = randint(0,len(self.capacite)-1)
         
         return self.capacite[i]
     
@@ -90,35 +90,15 @@ class Personnage:
     def add_capacite(self, new_capacite) :
         self.capacite.add_cap(new_capacite)
     
-    def action(self):
+    def get_action_alea(self):
         return self.capacite.alea_cap()
     
     def affiche_action(self, screen, position ):
-        pass
-        # pos_x , pos_y = position[0] , position[1]
-        # pos_x += 50
-        # pos_y += 10 
-
-        # for i in range(self.pts_vie):
-        #     image = pygame.image.load("Images\Etat\pts_vie_full.png").convert_alpha()
-        #     image = pygame.transform.scale(image, (20,20))
-        #     screen.blit(image, (pos_x, pos_y))
-        #     pos_x += 10
-            
-        #     if i == 9 or i == 19 :
-        #         pos_x = position[0] + 50
-        #         pos_y += 10
-
-        
-        # for j in range(self.pts_vie_max - self.pts_vie) :
-        #     image = pygame.image.load("Images\Etat\pts_vie_empty.png").convert_alpha()
-        #     image = pygame.transform.scale(image, (20,20))
-        #     screen.blit(image, (pos_x, pos_y))
-        #     pos_x += 10
-
-        #     if i+j == 9 or i+j == 19 :
-        #         pos_x = position[0] + 50
-        #         pos_y += 10
+        action = self.get_action_alea()
+        if isinstance(action, Atk_epee) :
+            image = pygame.image.load("Images\Attaque\Epee.png").convert_alpha()
+            image = pygame.transform.scale(image, (100,100) ) #position[2:]
+            screen.blit(image, (500,100))
 
 
 class Ennemi():

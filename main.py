@@ -12,6 +12,7 @@ pygame.display.set_caption("Slice 2 Dice")
 screen = pygame.display.set_mode([1000, 500])
 
 CURRENT_SCENE = init_scene_menu()
+
 # Run until the user asks to quit
 while PLAY:
     # sleep(2)
@@ -35,7 +36,7 @@ while PLAY:
                     bouton.couleur_temp = (bouton.couleur[0]+10, bouton.couleur[1]+10, bouton.couleur[2]+10)
 
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        CURRENT_SCENE = init_scene_combat()
+                        CURRENT_SCENE = bouton.executer(CURRENT_SCENE)
                 
                 else : 
                     bouton.couleur_temp = (bouton.couleur[0]-10, bouton.couleur[1]-10, bouton.couleur[2]-10)
