@@ -14,7 +14,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ### V0.7 :
 
-
+* Implémentation de trois actions : Attaque, Block et Heal
 
 ### V0.6 : 
 
