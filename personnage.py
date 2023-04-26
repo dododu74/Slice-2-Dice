@@ -1,5 +1,24 @@
 import pygame
-from action import *
+from random import randint
+
+class Atk_epee:
+    def __init__(self, pts_atk):
+        self.pts_atk = pts_atk
+        self.image_root = "Images\Attaque\Epee.png"
+
+class Capacite :
+    def __init__(self, base_cap:list = [None,None,Atk_epee(5)] ):
+        self.capacite = base_cap
+
+    def alea_cap(self) :
+        i = randint(len(self.capacite))
+        
+        return self.capacite[i]
+    
+    def add_cap(self, add) :
+        self.capacite.append(add)
+    
+        
 
 class Personnage:
     def __init__(self, image_root="Images\Sprites\PropsInPixels_16x60.png", max_hp = 10):
@@ -9,8 +28,7 @@ class Personnage:
         self.image_root = image_root
 
         # Attaques du personnage
-        self.action = Capacite()
-
+        self.capacite = Capacite()
 
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
@@ -40,7 +58,6 @@ class Personnage:
         return self.en_vie
 
     def affiche_pts_vie(self, screen, position ):
-        
         pos_x , pos_y = position[0] , position[1]
         pos_x += 50
         pos_y += 10 
@@ -66,8 +83,42 @@ class Personnage:
                 pos_x = position[0] + 50
                 pos_y += 10
 
-    def set_capacite(self,new_capacite:Capacite):
+    # L'ensemple des fonction reklatives aux capacités  
+    def set_capacite(self, new_capacite:Capacite) :
         self.capacite = new_capacite
+    
+    def add_capacite(self, new_capacite) :
+        self.capacite.add_cap(new_capacite)
+    
+    def action(self):
+        return self.capacite.alea_cap()
+    
+    def affiche_action(self, screen, position ):
+        pass
+        # pos_x , pos_y = position[0] , position[1]
+        # pos_x += 50
+        # pos_y += 10 
+
+        # for i in range(self.pts_vie):
+        #     image = pygame.image.load("Images\Etat\pts_vie_full.png").convert_alpha()
+        #     image = pygame.transform.scale(image, (20,20))
+        #     screen.blit(image, (pos_x, pos_y))
+        #     pos_x += 10
+            
+        #     if i == 9 or i == 19 :
+        #         pos_x = position[0] + 50
+        #         pos_y += 10
+
+        
+        # for j in range(self.pts_vie_max - self.pts_vie) :
+        #     image = pygame.image.load("Images\Etat\pts_vie_empty.png").convert_alpha()
+        #     image = pygame.transform.scale(image, (20,20))
+        #     screen.blit(image, (pos_x, pos_y))
+        #     pos_x += 10
+
+        #     if i+j == 9 or i+j == 19 :
+        #         pos_x = position[0] + 50
+        #         pos_y += 10
 
 
 class Ennemi():
