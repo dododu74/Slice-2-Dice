@@ -16,6 +16,8 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 * Implémentation de trois actions : Attaque, Block et Heal
 
+* Problème majeur : Clignottement des immages d'actions
+
 ### V0.6 : 
 
 * Ajouts des boutons, pour le menu
