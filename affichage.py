@@ -47,7 +47,7 @@ def init_scene_combat():
     for i in range (5):
         alea = str (randint(0,1)) + str(randint(1,8))
         personnage = Personnage("Images\Personnage\p_" + alea + ".png")
-        personnage.set_capacite({'1':Atk_epee(1),'2':Atk_epee(1),'3':Atk_epee(1),'4':Atk_epee(2)})
+        
         scene.ajout_elm(personnage)
 
     # On ajoute des ennemis à la scène
