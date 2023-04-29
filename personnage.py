@@ -87,7 +87,7 @@ class Personnage:
                 pos_x = position[0] + 50
                 pos_y += 10
 
-    # L'ensemple des fonction reklatives aux capacités  
+    # L'ensemple des fonction relatives aux capacités  
     def set_capacite(self, new_capacite:Capacite) :
         self.capacite = new_capacite
     
@@ -123,7 +123,10 @@ class Ennemi():
         self.pts_vie = max_hp
         self.pts_vie_max = max_hp
         self.image_root = image_root
-    
+
+        # Attaques du personnage
+        self.capacite = Capacite()
+
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
         self.pts_vie = vie
@@ -176,3 +179,26 @@ class Ennemi():
             if i+j == 9 or i+j == 19 :
                 pos_x = position[0] + 50
                 pos_y += 10
+
+    # L'ensemple des fonction relatives aux capacités  
+    def set_capacite(self, new_capacite:Capacite) :
+        self.capacite = new_capacite
+    
+    def add_capacite(self, new_capacite) :
+        self.capacite.add_cap(new_capacite)
+    
+    def get_action_alea(self):
+        return self.capacite.alea_cap()
+    
+    def affiche_action(self, screen, action, position ):
+        
+        if isinstance(action, No_action) :
+            image = pygame.image.load(action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, position)
+        
+        if isinstance(action, Atk_epee) :
+            image = pygame.image.load(action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, position)
+

@@ -273,6 +273,7 @@ class Scene :
     def tour(self, screen) -> None :
         if self.etat ==  0 :
             self.action_perso = []
+            self.action_ennemi = []
             self.etat = 1
         
         elif self.etat == 1 :
@@ -284,13 +285,25 @@ class Scene :
 
             # On affiche en suite les actions.
             for j in range(len(self.perso)) :
-                pos_x = 200
+                pos_x = 210
                 pos_y = 85 + 75 * j
 
                 self.perso[j].affiche_action(screen, self.action_perso[j], (pos_x, pos_y) )
 
         elif self.etat == 2 :
-            pass # Tour des ennemis
+            
+            # On attribut une nouvelle action aux ennemis
+            
+            for elm in self.ennemi :
+                self.action_ennemi.append(elm.get_action_alea())
+
+            # On affiche en suite les actions.
+            for j in range(len(self.ennemi)) :
+                pos_x = 910
+                pos_y = 85 + 75 * j
+
+                self.ennemi[j].affiche_action(screen, self.action_ennemi[j], (pos_x, pos_y) )
+
 
         else :
             self.etat = 0
