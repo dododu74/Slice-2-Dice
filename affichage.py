@@ -6,7 +6,7 @@ from random import randint
 if __name__ == '__main__':
     pygame.init()
 
-base_police = pygame.font.Font("Data/JoganSoft.otf",40)
+base_police = pygame.font.Font( "Data/JoganSoft.otf" ,40)
 
 def init_scene_menu():
     # Scene de Menu
@@ -44,7 +44,7 @@ def init_scene_combat():
     scene.ajout_elm(Boite1A)
     scene.ajout_elm(Boite2A)
 
-    Boite3 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
+    Boite3 = Rectangles('Bouton 1', 20, (72, 74, 79), (400,420, 200,50))
     code3 = """
 CURRENT_SCENE.etat += 1
 """
