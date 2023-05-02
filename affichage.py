@@ -6,7 +6,7 @@ from random import randint
 if __name__ == '__main__':
     pygame.init()
 
-base_police = pygame.font.Font("Data/JoganSoft.otf",40)
+base_police = pygame.font.Font( "Data/JoganSoft.otf" ,40)
 
 def init_scene_menu():
     # Scene de Menu
@@ -31,7 +31,7 @@ CURRENT_SCENE = init_scene_combat()
 
 def init_scene_combat():
     # Scene de Combat
-    Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images\Background\Cloudy_Mountains.png")
+    Boite0 = Image('Fond', 0, (0,0),(1000,500), "Images/Background/Cloudy_Mountains.png")
 
     Boite1 = Rectangles('Boites Joueurs1', 1, (105, 105, 105, 125), (0, 50, 300, 400))    # On définis un rectangle 
     Boite1A = Trans_Rectangles(Boite1, 200)                                               # Et on lui rajoute sa valeure Alpha, de transparence.
@@ -44,7 +44,7 @@ def init_scene_combat():
     scene.ajout_elm(Boite1A)
     scene.ajout_elm(Boite2A)
 
-    Boite3 = Rectangles('Bouton 1', 20, (72, 74, 79), (420,220, 160,50))
+    Boite3 = Rectangles('Bouton 1', 20, (72, 74, 79), (400,420, 200,50))
     code3 = """
 CURRENT_SCENE.etat += 1
 """
@@ -59,13 +59,13 @@ CURRENT_SCENE.etat += 1
     # On ajoute des personnages à la scène
     for i in range (5):
         alea = str (randint(0,1)) + str(randint(1,8))
-        personnage = Personnage("Images\Personnage\p_" + alea + ".png")
+        personnage = Personnage("Images/Personnage/p_" + alea + ".png")
         
         scene.ajout_elm(personnage)
 
     # On ajoute des ennemis à la scène
     for i in range(3):
-        root = "Images\Personnage\e_01.png"
+        root = "Images/Personnage/e_01.png"
         scene.ajout_elm(Ennemi(root, randint(1,22)))
 
     return scene
@@ -108,7 +108,7 @@ class Bouton :
         # La fonction nécessite un dictionnaire de sortie pour les variables
         variables = {"CURRENT_SCENE":CURRENT_SCENE}
 
-        # Execution du code STR du bouton
+        # Execution du code de type STR du bouton
         exec(self.code, variables)
 
         # On prend en compte les changements du bouton
@@ -202,12 +202,13 @@ class Scene :
                 image = pygame.transform.scale(image, elm.format)
                 screen.blit(image, elm.position)
 
-        # On affiche maintenant les personnages
         if len(self.perso) > 0 :
+            # On affiche maintenant les personnages
+
             self.affiche_perso(screen)
 
-        # Et les ennemis 
-        for i in range(len(self.ennemi)):
+            # Et les ennemis 
+
 
             self.affiche_ennemi(screen)
 
@@ -269,21 +270,40 @@ class Scene :
         if i + 1 < len(self.ennemi) :
             self.affiche_ennemi(screen, i+1)
 
-    def tour(self, screen, i = 0) -> None :
+    def tour(self, screen) -> None :
         if self.etat ==  0 :
-            return None
+            self.action_perso = []
+            self.action_ennemi = []
+            self.etat = 1
+        
         elif self.etat == 1 :
 
-            for i in range(len(self.perso)) :
-                pos_x = 150
-                pos_y = 75 + 75 * i
-                longeur = 30
-                largeur = 30
+            # On attribut une nouvelle action aux personnages
+            
+            for elm in self.perso :
+                self.action_perso.append(elm.get_action_alea())
 
-                self.perso[i].affiche_action(screen, (pos_x, pos_y, longeur, largeur) )
+            # On affiche en suite les actions.
+            for j in range(len(self.perso)) :
+                pos_x = 210
+                pos_y = 85 + 75 * j
+
+                self.perso[j].affiche_action(screen, self.action_perso[j], (pos_x, pos_y) )
 
         elif self.etat == 2 :
-            pass # Tour des ennemis
+            
+            # On attribut une nouvelle action aux ennemis
+            
+            for elm in self.ennemi :
+                self.action_ennemi.append(elm.get_action_alea())
+
+            # On affiche en suite les actions.
+            for j in range(len(self.ennemi)) :
+                pos_x = 910
+                pos_y = 85 + 75 * j
+
+                self.ennemi[j].affiche_action(screen, self.action_ennemi[j], (pos_x, pos_y) )
+
 
         else :
             self.etat = 0
