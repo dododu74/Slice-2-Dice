@@ -108,7 +108,7 @@ class Bouton :
         # La fonction nécessite un dictionnaire de sortie pour les variables
         variables = {"CURRENT_SCENE":CURRENT_SCENE}
 
-        # Execution du code STR du bouton
+        # Execution du code de type STR du bouton
         exec(self.code, variables)
 
         # On prend en compte les changements du bouton
