@@ -12,6 +12,10 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ## Changelog
 
+### V0.8
+
+* Bientot : Affichages des attaques ennemis
+
 ### V0.7 :
 
 * Implémentation de deux actions : Attaque et Attendre
