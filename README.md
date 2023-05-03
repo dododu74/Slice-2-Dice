@@ -14,7 +14,7 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 ### V0.8
 
-* Modification de la methode d'affichage des attaques, les attaque appartiennent maintenant aux personnages/ennemies.
+* Modification de la méthode d'affichage des attaques, les attaque appartiennent maintenant aux personnages/ennemies.
 
 * Changements de l'affichage des personnages/ennemis qui passe par la classe personnage/ennemis plutôt que par le module d'affichage.
 

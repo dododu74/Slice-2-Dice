@@ -26,6 +26,9 @@ class Capacite :
     def add_cap(self, add) :
         self.capacite.append(add)
     
+    def remove_cap(self, remove) :
+        self.capacite.remove(remove)
+    
         
 
 class Personnage:

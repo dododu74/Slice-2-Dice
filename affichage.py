@@ -228,6 +228,14 @@ class Scene :
 
     def tour(self, screen) -> None :
         if self.etat ==  0 :
+
+            # On remet a 0 toutes les actions des personnages/ennemis
+            for perso in self.perso:
+                perso.action = Non_choisi()
+            for ennemi in self.ennemi:
+                ennemi.action = Non_choisi()
+            
+            # On passe ensuite au tour suivant
             self.etat = 1
         
         elif self.etat == 1 :
