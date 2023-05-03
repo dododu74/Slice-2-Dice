@@ -113,7 +113,7 @@ class Bouton :
 
         # On prend en compte les changements du bouton
         return variables["CURRENT_SCENE"]
-            
+
 class Cercle :
     def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
         self.nom = nom
@@ -129,6 +129,14 @@ class Image :
         self.position = pos
         self.format = format
         self.root = root
+
+class Ligne :
+    def __init__(self, priorit:int, color:tuple, pointA:tuple, pointB:tuple, epaisseur:int ):
+        self.priorite = priorit
+        self.couleur = color
+        self.pointA = pointA
+        self.pointB = pointB
+        self.epaisseur = epaisseur
 
 
 class Scene :
@@ -201,6 +209,9 @@ class Scene :
                 image = pygame.image.load( elm.root ).convert_alpha()
                 image = pygame.transform.scale(image, elm.format)
                 screen.blit(image, elm.position)
+            
+            elif isinstance(elm, Ligne) :
+                pygame.draw.line(screen, elm.couleur, elm.pointA, elm.pointB, elm.epaisseur)
 
         if len(self.perso) > 0 :
             # On affiche maintenant les personnages

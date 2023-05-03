@@ -202,3 +202,6 @@ class Ennemi():
             image = pygame.transform.scale(image, (30,30))
             screen.blit(image, position)
 
+    def trouver_cible_action(self, CURRENT_SCENE):
+        
+        pass
