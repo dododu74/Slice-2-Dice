@@ -25,11 +25,16 @@ class Capacite :
         
 
 class Personnage:
-    def __init__(self, image_root="Images/Sprites/PropsInPixels_16x60.png", max_hp = 10):
+    def __init__(self, emplacement, image_root="Images/Personnage/p_01.png", max_hp = 10):
+        
         self.en_vie = True
         self.pts_vie = max_hp
         self.pts_vie_max = max_hp
         self.image_root = image_root
+
+        # On a ici les coordonnées du personnages, coin supérieur gaughe
+        self.emplacement = emplacement
+        self.pos = (20, 75 + 75 * emplacement)
 
         # Attaques du personnage
         self.capacite = Capacite()
@@ -61,10 +66,34 @@ class Personnage:
     def est_en_vie(self):
         return self.en_vie
 
-    def affiche_pts_vie(self, screen, position ):
-        pos_x , pos_y = position[0] , position[1]
-        pos_x += 50
-        pos_y += 10 
+    # Les fonctions relatives à l'affichage
+    def affiche_perso(self, screen):
+        longeur = 250
+        largeur = 50
+        
+        # On affiche le cadre dédié au personnage
+        pygame.draw.rect(screen, (150,150,150), (self.pos[0], self.pos[1], longeur, largeur), 0  ,  15)
+        pygame.draw.rect(screen, (0,0,0), (self.pos[0], self.pos[1], longeur, largeur), 5  ,  15)
+        
+        # On affiche l'image du personnage
+        image = pygame.image.load(self.image_root).convert_alpha()
+        image = pygame.transform.scale(image, (40, 40))
+        screen.blit(image, (self.pos[0] + 5, self.pos[1] + 5))
+
+        # On ajoute des éléments visuels si le personnage est mort
+        if not self.est_en_vie():
+            pygame.draw.polygon(screen, (100,0,0,125), (self.pos, (self.pos[0] + longeur, self.pos[1] + largeur), (self.pos[0] + longeur, self.pos[1]), (self.pos[0], self.pos[1] + largeur )), 5)
+
+
+        # On affiche les points de vie du personnage sinon
+        else :   
+            self.affiche_pts_vie(screen)
+
+
+    def affiche_pts_vie(self, screen):
+        
+        pos_x = 50 + self.pos[0]
+        pos_y = 10 + self.pos[1]
 
         for i in range(self.pts_vie):
             image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
@@ -73,7 +102,7 @@ class Personnage:
             pos_x += 10
             
             if i == 9 or i == 19 :
-                pos_x = position[0] + 50
+                pos_x -= 100
                 pos_y += 10
 
         i = self.pts_vie - 1
@@ -84,7 +113,7 @@ class Personnage:
             pos_x += 10
 
             if i+j == 9 or i+j == 19 :
-                pos_x = position[0] + 50
+                pos_x -= 100
                 pos_y += 10
 
     # L'ensemple des fonction relatives aux capacités  
@@ -118,13 +147,17 @@ class Personnage:
 
 
 class Ennemi():
-    def __init__(self, image_root="Images/Sprites/PropsInPixels_16x70.png", max_hp = 10):
+    def __init__(self, emplacement:int, image_root="Images/Sprites/PropsInPixels_16x70.png", max_hp = 10):
         self.en_vie = True
         self.pts_vie = max_hp
         self.pts_vie_max = max_hp
         self.image_root = image_root
 
-        # Attaques du personnage
+        # Coordonnées de l'ennemi
+        self.emplacement = emplacement
+        self.pos = (720, 75 + 75 * emplacement)
+
+        # Attaques de l'ennemi
         self.capacite = Capacite()
 
     def set_vie_max(self, vie):
@@ -154,10 +187,33 @@ class Ennemi():
     def est_en_vie(self):
         return self.en_vie
     
-    def affiche_pts_vie(self, screen, position ):
-        pos_x , pos_y = position[0] , position[1]
-        pos_x += 50
-        pos_y += 10 
+    # L'ensembles de méthodes d'affichage
+    def affiche_ennemi(self, screen):
+
+        longeur = 250
+        largeur = 50
+        
+        # On affiche le cadre dédié au personnage
+        pygame.draw.rect(screen, (150,150,150), (self.pos[0], self.pos[1], longeur, largeur), 0  ,  15)
+        pygame.draw.rect(screen, (0,0,0), (self.pos[0], self.pos[1], longeur, largeur), 5  ,  15)
+        
+        # On affiche l'image du personnage
+        image = pygame.image.load(self.image_root).convert_alpha()
+        image = pygame.transform.scale(image, (40, 40))
+        screen.blit(image, (self.pos[0] + 5 , self.pos[1] + 5))
+
+        # On ajoute des éléments visuels si le personnage est mort
+        if not self.est_en_vie():
+            pygame.draw.polygon(screen, (100,0,0,125), (self.pos, (self.pos[0] + longeur, self.pos[1] + largeur), (self.pos[0] + longeur, self.pos[1]), (self.pos[0], self.pos[1] + largeur )), 5)
+
+        else :
+
+            # On affiche les points de vie du personnage sinon
+            self.affiche_pts_vie(screen)
+    
+    def affiche_pts_vie(self, screen):
+        pos_x = 50 + self.pos[0]
+        pos_y = 10 + self.pos[1]
 
         for i in range(self.pts_vie):
             image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
@@ -166,7 +222,7 @@ class Ennemi():
             pos_x += 10
 
             if i == 9 or i == 19 :
-                pos_x = position[0] + 50
+                pos_x -= 100
                 pos_y += 10
 
         i = self.pts_vie - 1
@@ -177,15 +233,12 @@ class Ennemi():
             pos_x += 10
 
             if i+j == 9 or i+j == 19 :
-                pos_x = position[0] + 50
+                pos_x -= 100
                 pos_y += 10
 
     # L'ensemple des fonction relatives aux capacités  
     def set_capacite(self, new_capacite:Capacite) :
         self.capacite = new_capacite
-    
-    def add_capacite(self, new_capacite) :
-        self.capacite.add_cap(new_capacite)
     
     def get_action_alea(self):
         return self.capacite.alea_cap()
@@ -202,6 +255,8 @@ class Ennemi():
             image = pygame.transform.scale(image, (30,30))
             screen.blit(image, position)
 
+    
+    
     def trouver_cible_action(self, CURRENT_SCENE):
         
         pass

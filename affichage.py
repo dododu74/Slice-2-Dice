@@ -59,14 +59,14 @@ CURRENT_SCENE.etat += 1
     # On ajoute des personnages à la scène
     for i in range (5):
         alea = str (randint(0,1)) + str(randint(1,8))
-        personnage = Personnage("Images/Personnage/p_" + alea + ".png")
+        personnage = Personnage( i , "Images/Personnage/p_" + alea + ".png")
         
         scene.ajout_elm(personnage)
 
     # On ajoute des ennemis à la scène
     for i in range(3):
         root = "Images/Personnage/e_01.png"
-        scene.ajout_elm(Ennemi(root, randint(1,22)))
+        scene.ajout_elm(Ennemi(i,root, randint(1,29)))
 
     return scene
 
@@ -213,73 +213,16 @@ class Scene :
             elif isinstance(elm, Ligne) :
                 pygame.draw.line(screen, elm.couleur, elm.pointA, elm.pointB, elm.epaisseur)
 
-        if len(self.perso) > 0 :
-            # On affiche maintenant les personnages
+        # On affiche maintenant les personnages
+        for perso in self.perso:
+            perso.affiche_perso(screen)
 
-            self.affiche_perso(screen)
+        # Et les ennemis 
+        for ennemi in self.ennemi:
+            ennemi.affiche_ennemi(screen)
 
-            # Et les ennemis 
-
-
-            self.affiche_ennemi(screen)
-
+        # Alors ensuite le jeu peut faire un tour
         self.tour(screen)
-
-    def affiche_perso(self, screen, i = 0):
-        pos_x = 20
-        pos_y = 75 + 75 * i
-        longeur = 250
-        largeur = 50
-        
-        # On affiche le cadre dédié au personnage
-        pygame.draw.rect(screen, (150,150,150), (pos_x, pos_y, longeur, largeur), 0  ,  15)
-        pygame.draw.rect(screen, (0,0,0), (pos_x, pos_y, longeur, largeur), 5  ,  15)
-        
-        # On affiche l'image du personnage
-        image = pygame.image.load(self.perso[i].image_root).convert_alpha()
-        image = pygame.transform.scale(image, (40, 40))
-        screen.blit(image, (pos_x + 5, pos_y + 5))
-
-        # On ajoute des éléments visuels si le personnage est mort
-        if not self.perso[i].est_en_vie():
-            pygame.draw.polygon(screen, (100,0,0,125), ((pos_x, pos_y), (pos_x + longeur, pos_y + largeur), (pos_x + longeur, pos_y), (pos_x, pos_y + largeur)), 5)
-
-        else :
-
-            # On affiche les points de vie du personnage
-            self.perso[i].affiche_pts_vie(screen, (pos_x, pos_y))
-
-
-        if i + 1 < len(self.perso) :
-            self.affiche_perso(screen, i+1)
-
-    def affiche_ennemi(self, screen, i = 0):
-        pos_x = 720
-        pos_y = 75 + 75 * i 
-        longeur = 250
-        largeur = 50
-        
-        # On affiche le cadre dédié au personnage
-        pygame.draw.rect(screen, (150,150,150), (pos_x, pos_y, longeur, largeur), 0  ,  15)
-        pygame.draw.rect(screen, (0,0,0), (pos_x, pos_y, longeur, largeur), 5  ,  15)
-        
-        # On affiche l'image du personnage
-        image = pygame.image.load(self.ennemi[i].image_root).convert_alpha()
-        image = pygame.transform.scale(image, (40, 40))
-        screen.blit(image, (pos_x + 5, pos_y + 5))
-
-        # On ajoute des éléments visuels si le personnage est mort
-        if not self.ennemi[i].est_en_vie():
-            pygame.draw.polygon(screen, (100,0,0,125), ((pos_x, pos_y), (pos_x + longeur, pos_y + largeur), (pos_x + longeur, pos_y), (pos_x, pos_y + largeur)), 5)
-
-        else :
-
-            # On affiche les points de vie du personnage sinon
-            self.ennemi[i].affiche_pts_vie(screen, (pos_x, pos_y))
-
-
-        if i + 1 < len(self.ennemi) :
-            self.affiche_ennemi(screen, i+1)
 
     def tour(self, screen) -> None :
         if self.etat ==  0 :
