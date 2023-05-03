@@ -6,6 +6,10 @@ class Atk_epee:
         self.pts_atk = pts_atk
         self.image_root = "Images/Attaque/Epee.png"
 
+class Non_choisi : 
+    def __init__(self):
+        self.image_root = "Images/Attaque/None.png"
+
 class No_action : 
     def __init__(self):
         self.image_root = "Images/Attaque/None.png"
@@ -26,7 +30,6 @@ class Capacite :
 
 class Personnage:
     def __init__(self, emplacement, image_root="Images/Personnage/p_01.png", max_hp = 10):
-        
         self.en_vie = True
         self.pts_vie = max_hp
         self.pts_vie_max = max_hp
@@ -38,6 +41,7 @@ class Personnage:
 
         # Attaques du personnage
         self.capacite = Capacite()
+        self.action = Non_choisi()
 
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
@@ -66,7 +70,7 @@ class Personnage:
     def est_en_vie(self):
         return self.en_vie
 
-    # Les fonctions relatives à l'affichage
+    # Les méthodes relatives à l'affichage
     def affiche_perso(self, screen):
         longeur = 250
         largeur = 50
@@ -88,7 +92,6 @@ class Personnage:
         # On affiche les points de vie du personnage sinon
         else :   
             self.affiche_pts_vie(screen)
-
 
     def affiche_pts_vie(self, screen):
         
@@ -116,34 +119,27 @@ class Personnage:
                 pos_x -= 100
                 pos_y += 10
 
-    # L'ensemple des fonction relatives aux capacités  
+    # L'ensemple des méthodes relatives aux capacités  
     def set_capacite(self, new_capacite:Capacite) :
         self.capacite = new_capacite
-    
-    def add_capacite(self, new_capacite) :
-        self.capacite.add_cap(new_capacite)
-    
-    def get_action_alea(self):
-        return self.capacite.alea_cap()
-    
-    def affiche_action(self, screen, action, position ):
-        
-        if isinstance(action, No_action) :
-            image = pygame.image.load(action.image_root).convert_alpha()
-            image = pygame.transform.scale(image, (30,30))
-            screen.blit(image, position)
-        
-        if isinstance(action, Atk_epee) :
-            image = pygame.image.load(action.image_root).convert_alpha()
-            image = pygame.transform.scale(image, (30,30))
-            screen.blit(image, position)
-        
 
+    def nouvelle_action(self):
+        self.action = self.capacite.alea_cap()
 
-        # if isinstance(action, Block) :
-        #     image = pygame.image.load("Images\Attaque\Epee.png").convert_alpha()
-        #     image = pygame.transform.scale(image, (100,100) ) #position[2:]
-        #     screen.blit(image, (500,100))
+    def affiche_action(self, screen):
+        
+        pos_x = self.pos[0] + 190
+        pos_y = self.pos[1] + 10
+
+        if isinstance(self.action, No_action) :
+            image = pygame.image.load(self.action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, (pos_x, pos_y))
+        
+        if isinstance(self.action, Atk_epee) :
+            image = pygame.image.load(self.action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, (pos_x, pos_y))
 
 
 class Ennemi():
@@ -159,6 +155,7 @@ class Ennemi():
 
         # Attaques de l'ennemi
         self.capacite = Capacite()
+        self.action = Non_choisi()
 
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
@@ -236,27 +233,28 @@ class Ennemi():
                 pos_x -= 100
                 pos_y += 10
 
-    # L'ensemple des fonction relatives aux capacités  
+    # L'ensemple des méthodes relatives aux capacités  
     def set_capacite(self, new_capacite:Capacite) :
         self.capacite = new_capacite
     
-    def get_action_alea(self):
-        return self.capacite.alea_cap()
-    
-    def affiche_action(self, screen, action, position ):
-        
-        if isinstance(action, No_action) :
-            image = pygame.image.load(action.image_root).convert_alpha()
-            image = pygame.transform.scale(image, (30,30))
-            screen.blit(image, position)
-        
-        if isinstance(action, Atk_epee) :
-            image = pygame.image.load(action.image_root).convert_alpha()
-            image = pygame.transform.scale(image, (30,30))
-            screen.blit(image, position)
+    def nouvelle_action(self):
+        self.action = self.capacite.alea_cap()
 
-    
-    
+    def affiche_action(self, screen):
+        
+        pos_x = self.pos[0] + 190
+        pos_y = self.pos[1] + 10
+
+        if isinstance(self.action, No_action) :
+            image = pygame.image.load(self.action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, (pos_x, pos_y))
+        
+        if isinstance(self.action, Atk_epee) :
+            image = pygame.image.load(self.action.image_root).convert_alpha()
+            image = pygame.transform.scale(image, (30,30))
+            screen.blit(image, (pos_x, pos_y))
+
     def trouver_cible_action(self, CURRENT_SCENE):
         
         pass

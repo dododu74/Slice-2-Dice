@@ -143,9 +143,11 @@ class Scene :
     def __init__(self, nom) -> None:
         self.nom = nom
         self.file_objets = File()
+
         # On ajoute les variable qui vont gérer les joueurs et ennemis en jeux.
         self.perso = []
         self.ennemi = []
+        # Ainsi que les tours de jeu
         self.etat = 0
 
     def ajout_elm(self, elm) :
@@ -226,53 +228,41 @@ class Scene :
 
     def tour(self, screen) -> None :
         if self.etat ==  0 :
-            self.action_perso = []
-            self.action_ennemi = []
             self.etat = 1
         
         elif self.etat == 1 :
 
-            # On attribut une nouvelle action aux personnages
-            
-            for elm in self.perso :
-                self.action_perso.append(elm.get_action_alea())
+            # Pour tous les personnages encore vivants
+            for perso in self.perso :
 
-            # On affiche en suite les actions.
-            for j in range(len(self.perso)) :
-                pos_x = 210
-                pos_y = 85 + 75 * j
+                # On attribut une nouvelle action aux personnages
+                if isinstance(perso.action, Non_choisi):
+                    # Seulement si il n'a encore pas d'action
+                    perso.nouvelle_action()
 
-                self.perso[j].affiche_action(screen, self.action_perso[j], (pos_x, pos_y) )
+                # On affiche en suite l'action
+                perso.affiche_action(screen)
+                
+
+                
 
         elif self.etat == 2 :
             
-            # On attribut une nouvelle action aux ennemis
-            
-            for elm in self.ennemi :
-                self.action_ennemi.append(elm.get_action_alea())
 
-            # On affiche en suite les actions.
-            for j in range(len(self.ennemi)) :
-                pos_x = 910
-                pos_y = 85 + 75 * j
+            # Pour tous les personnages encore vivants
+            for ennemi in self.ennemi :
 
-                self.ennemi[j].affiche_action(screen, self.action_ennemi[j], (pos_x, pos_y) )
+                # On attribut une nouvelle action aux personnages
+                if isinstance(ennemi.action, Non_choisi):
+                    # Seulement si il n'a encore pas d'action
+                    ennemi.nouvelle_action()
+
+                # On affiche en suite l'action
+                ennemi.affiche_action(screen)
 
 
         else :
             self.etat = 0
-
-
-    # def trier_objets(self):
-    #     liste = []
-    #     liste_priorite = []
-    #     for i in range(self.pile_objets.taille()):
-    #         elm = self.pile_objets.depiler()
-    #         liste.append(elm)
-    #         liste_priorite.append(elm.priorite)
-    #     sorted(liste_priorite)
-
-    #     print(liste_priorite,liste)
 
         
         
