@@ -229,45 +229,38 @@ class Scene :
     def tour(self, screen) -> None :
         if self.etat ==  0 :
 
-            # On remet a 0 toutes les actions des personnages/ennemis
+            # On attribut une nouvelle action aux personnages
             for perso in self.perso:
-                perso.action = Non_choisi()
+                perso.nouvelle_action()
+
             for ennemi in self.ennemi:
-                ennemi.action = Non_choisi()
+                ennemi.nouvelle_action()
             
             # On passe ensuite au tour suivant
             self.etat = 1
         
         elif self.etat == 1 :
 
-            # Pour tous les personnages encore vivants
-            for perso in self.perso :
-
-                # On attribut une nouvelle action aux personnages
-                if isinstance(perso.action, Non_choisi):
-                    # Seulement si il n'a encore pas d'action
-                    perso.nouvelle_action()
-
-                # On affiche en suite l'action
-                perso.affiche_action(screen)
-                
-
-                
-
-        elif self.etat == 2 :
-            
-
-            # Pour tous les personnages encore vivants
+            # Pour tous les ennemis encore vivants
             for ennemi in self.ennemi :
-
-                # On attribut une nouvelle action aux personnages
-                if isinstance(ennemi.action, Non_choisi):
-                    # Seulement si il n'a encore pas d'action
-                    ennemi.nouvelle_action()
 
                 # On affiche en suite l'action
                 ennemi.affiche_action(screen)
 
+            
+            # Pour tous les personnages encore vivants
+            for perso in self.perso :
+
+                # On affiche en suite l'action
+                perso.affiche_action(screen)
+                  
+
+        
+        
+        
+        elif self.etat == 2 :
+            self.etat = 3
+            
 
         else :
             self.etat = 0
