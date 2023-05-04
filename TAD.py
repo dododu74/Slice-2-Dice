@@ -79,3 +79,43 @@ class Pile:
 
     def taille(self):
         return len(self.pile)
+    
+
+#### L'ensemble des classes qui sont des objets utiles aux Scènes
+
+class Rectangles :
+    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple) -> None:
+        self.nom = nom
+        self.priorite = priorit
+        self.couleur = color
+        self.position = pos
+
+class Trans_Rectangles : 
+    def __init__(self, rectangle:Rectangles, alpha_lv):
+        self.Rectangle = rectangle
+        self.alpha_lv = alpha_lv
+        self.priorite = rectangle.priorite
+        
+class Cercle :
+    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
+        self.nom = nom
+        self.priorite = priorit
+        self.couleur = color
+        self.position = pos
+        self.radius = radius
+
+class Image :
+    def __init__(self, nom:str, priorit:int, pos:tuple, format, root) -> None:
+        self.nom = nom
+        self.priorite = priorit
+        self.position = pos
+        self.format = format
+        self.root = root
+
+class Ligne :
+    def __init__(self, priorit:int, color:tuple, pointA:tuple, pointB:tuple, epaisseur:int ):
+        self.priorite = priorit
+        self.couleur = color
+        self.pointA = pointA
+        self.pointB = pointB
+        self.epaisseur = epaisseur

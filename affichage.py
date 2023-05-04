@@ -70,21 +70,6 @@ CURRENT_SCENE.etat += 1
 
     return scene
 
-
-
-class Rectangles :
-    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple) -> None:
-        self.nom = nom
-        self.priorite = priorit
-        self.couleur = color
-        self.position = pos
-
-class Trans_Rectangles : 
-    def __init__(self, rectangle:Rectangles, alpha_lv):
-        self.Rectangle = rectangle
-        self.alpha_lv = alpha_lv
-        self.priorite = rectangle.priorite
-
 class Bouton :
     def __init__(self, text, rectangle:Rectangles, code_to_execute:str):
         self.Rectangle = pygame.Rect(rectangle.position)
@@ -113,31 +98,6 @@ class Bouton :
 
         # On prend en compte les changements du bouton
         return variables["CURRENT_SCENE"]
-
-class Cercle :
-    def __init__(self, nom:str, priorit:int, color:tuple, pos:tuple, radius) -> None:
-        self.nom = nom
-        self.priorite = priorit
-        self.couleur = color
-        self.position = pos
-        self.radius = radius
-
-class Image :
-    def __init__(self, nom:str, priorit:int, pos:tuple, format, root) -> None:
-        self.nom = nom
-        self.priorite = priorit
-        self.position = pos
-        self.format = format
-        self.root = root
-
-class Ligne :
-    def __init__(self, priorit:int, color:tuple, pointA:tuple, pointB:tuple, epaisseur:int ):
-        self.priorite = priorit
-        self.couleur = color
-        self.pointA = pointA
-        self.pointB = pointB
-        self.epaisseur = epaisseur
-
 
 class Scene :
     def __init__(self, nom) -> None:
@@ -223,10 +183,8 @@ class Scene :
         for ennemi in self.ennemi:
             ennemi.affiche_ennemi(screen)
 
-        # Alors ensuite le jeu peut faire un tour
-        self.tour(screen)
 
-    def tour(self, screen) -> None :
+    def tour(self, screen, CURRENT_SCENE) -> None :
         if self.etat ==  0 :
 
             # On attribut une nouvelle action aux personnages
@@ -241,10 +199,17 @@ class Scene :
         
         elif self.etat == 1 :
 
-            # Pour tous les ennemis encore vivants
+            # Pour tous les ennemis
             for ennemi in self.ennemi :
 
-                # On affiche en suite l'action
+
+                # On donne à l'ennemi une cible 
+                ennemi.trouver_cible_action()
+                # Cible qui doit nécessairement êrte en vie
+                while not CURRENT_SCENE.perso[ennemi.action_cible].est_en_vie :
+                    ennemi.trouver_cible_action()
+                
+                # On affiche ensuite l'action
                 ennemi.affiche_action(screen)
 
             
@@ -255,8 +220,6 @@ class Scene :
                 perso.affiche_action(screen)
                   
 
-        
-        
         
         elif self.etat == 2 :
             self.etat = 3

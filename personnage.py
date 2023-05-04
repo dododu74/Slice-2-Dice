@@ -1,5 +1,7 @@
 import pygame
 from random import randint
+from TAD import Ligne
+from pygame import draw
 
 class Atk_epee:
     def __init__(self, pts_atk):
@@ -159,6 +161,7 @@ class Ennemi():
         # Attaques de l'ennemi
         self.capacite = Capacite()
         self.action = Non_choisi()
+        self.action_cible = 0
 
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
@@ -254,10 +257,20 @@ class Ennemi():
             screen.blit(image, (pos_x, pos_y))
         
         if isinstance(self.action, Atk_epee) :
+            # On affiche l'icon de l'action
             image = pygame.image.load(self.action.image_root).convert_alpha()
             image = pygame.transform.scale(image, (30,30))
             screen.blit(image, (pos_x, pos_y))
 
-    def trouver_cible_action(self, CURRENT_SCENE):
+            # Coordonnées de l'attaqué
+            perso_x = 20                           + 250
+            perso_y = 75 + 75 * self.action_cible  + 25
+            # On dessine la ligne reliant l'attaquant et l'attaqué
+            ligne = Ligne(100, (randint(100,200),randint(100,200),randint(100,200)), (self.pos[0], self.pos[1] + 25), (perso_x, perso_y) , self.action.pts_atk + 5)
+            pygame.draw.line(screen, ligne.couleur, ligne.pointA, ligne.pointB, ligne.epaisseur) 
+
+
+    def trouver_cible_action(self):
         
-        pass
+        emplacement_cible = randint(0,4)
+        self.action_cible = emplacement_cible

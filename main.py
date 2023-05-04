@@ -43,6 +43,7 @@ while PLAY:
 
     
     CURRENT_SCENE.affiche(screen)
+    CURRENT_SCENE.tour(screen, CURRENT_SCENE)
 
     # Flip the display
     pygame.display.flip()
