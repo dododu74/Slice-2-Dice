@@ -161,7 +161,8 @@ class Ennemi():
         # Attaques de l'ennemi
         self.capacite = Capacite()
         self.action = Non_choisi()
-        self.action_cible = 0
+        self.action_couleur = (0,0,0)
+        self.action_cible = -1
 
     def set_vie_max(self, vie):
         self.pts_vie_max = vie
@@ -263,14 +264,19 @@ class Ennemi():
             screen.blit(image, (pos_x, pos_y))
 
             # Coordonnées de l'attaqué
-            perso_x = 20                           + 250
-            perso_y = 75 + 75 * self.action_cible  + 25
+            perso_x = 20 + 250
+            perso_y = 75 + 75 * self.action_cible + 25
             # On dessine la ligne reliant l'attaquant et l'attaqué
-            ligne = Ligne(100, (randint(100,200),randint(100,200),randint(100,200)), (self.pos[0], self.pos[1] + 25), (perso_x, perso_y) , self.action.pts_atk + 5)
+            ligne = Ligne(100, (self.action_couleur), (self.pos[0], self.pos[1] + 25), (perso_x, perso_y) , self.action.pts_atk + 5)
             pygame.draw.line(screen, ligne.couleur, ligne.pointA, ligne.pointB, ligne.epaisseur) 
 
 
     def trouver_cible_action(self):
-        
-        emplacement_cible = randint(0,4)
-        self.action_cible = emplacement_cible
+        if self.action_cible == -1 :
+            if isinstance(self.action, Atk_epee):
+                self.action_couleur = (randint(50,200), randint(50,200), randint(50,200))
+                emplacement_cible = randint(0,4)
+                self.action_cible = emplacement_cible
+
+    def reset_action_cible(self):
+        self.action_cible = -1

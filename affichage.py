@@ -193,6 +193,7 @@ class Scene :
 
             for ennemi in self.ennemi:
                 ennemi.nouvelle_action()
+                ennemi.reset_action_cible()
             
             # On passe ensuite au tour suivant
             self.etat = 1

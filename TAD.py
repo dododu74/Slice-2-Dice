@@ -44,43 +44,6 @@ class File:
     def taille(self) -> int:
         '''On return la taille de la file'''
         return len (self.file)
-
-class Pile:
-    def __init__(self):
-        '''Crée une pile vide'''
-        self.pile = []
-    
-    def __str__(self):
-        reponce = " ︺  "
-        for elt in self.pile:
-            if len(str(elt)) > 1 :
-                reponce = f"┃{elt}┃\n" + reponce
-            else : 
-                reponce = f"┃ {elt}┃\n" + reponce
-        return reponce
-    
-    def pile_est_vide(self):
-        '''Vérifie si la pile est vide'''
-        return self.pile == []
-
-    def empiler(self, element):
-        '''On enpile un élément dans la pile'''
-        self.pile = self.pile + [element]
-
-    def depiler(self):
-        '''On va dépiler un élément dans la pile et return la valeurs retiré'''
-        sommet = self.pile[-1]
-        self.pile = self.pile[:-1]
-        return sommet
-
-    def sommet(self):
-        '''On montre la sommet de la pile'''
-        return self.pile[-1]
-
-    def taille(self):
-        return len(self.pile)
-    
-
 #### L'ensemble des classes qui sont des objets utiles aux Scènes
 
 class Rectangles :

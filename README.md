@@ -8,7 +8,8 @@ Je veux faire un jeu de team building à la façon de *Slice & Dice*. En utilisa
 
 ## Fonctionnalités 
 
-Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre alors face a lui. La bibliothèque **Pygame** nous permet d'ouvrir cette fenêtre et d'afficher des rectangles colorées.
+Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre alors face à lui. La bibliothèque **Pygame** nous permet d'ouvrir cette fenêtre et d'afficher des scènes.
+On peut changer de scène en appuyant sur un bouton *play*. De plus, nous pouvons apercevoir l'arrangement des combats futurs. Il est même possible de faire baisser la vie du premier personnage qui peut en mourir. On peut jouer un tour en appuyant sur *passer*, les joueurs (et ennemis) ont maintenant des attaques, on voit également les cibles des attaques des ennemis. 
 
 ## Changelog
 
@@ -88,17 +89,6 @@ Le joueur exécute le fichier python `main.py`. Une magnifique fenêtre s'ouvre 
 
 * Le programme est en mesure d'ouvrir une fenêtre et de la fermer
 * On code des rectangles qui vont être définis/positionnés par la scène 1, on implémente la class Rectangle et Scène.
-
-## Roadmap, Idées 
-
-* Finnaliser le menu
-    * Ajout d'une classe bouton
-
-
-* Immaginer des attaques
-* Créer une classe personnages :
-    * Créer une foncion affichant les points de vie
-    * Créer les attaques liées aux personnages
 
 
 *etc...*
