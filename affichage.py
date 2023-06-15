@@ -213,6 +213,11 @@ class Scene :
                 # On affiche ensuite l'action
                 ennemi.affiche_action(screen)
 
+                # On met alors en suspen les poinst de vie des personnages
+                cible = ennemi.get_cible()
+                degats = ennemi.get_action_degats() 
+                self.perso[cible].suspendre_pv(degats)
+
             
             # Pour tous les personnages encore vivants
             for perso in self.perso :

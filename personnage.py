@@ -67,6 +67,9 @@ class Personnage:
         else :
             self.pts_vie += quantite
 
+    def suspendre_vie(self, degats):
+        self.vie_suspen =  degats
+
     def mort(self):
         self.en_vie = False
         self.image_root_avant = self.image_root
@@ -280,3 +283,6 @@ class Ennemi():
 
     def reset_action_cible(self):
         self.action_cible = -1
+
+    def get_cible(self):
+        return self.action_cible
