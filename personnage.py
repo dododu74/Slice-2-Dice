@@ -5,15 +5,17 @@ from pygame import draw
 
 class Atk_epee:
     def __init__(self, pts_atk):
-        self.pts_atk = pts_atk
+        self.degats = pts_atk
         self.image_root = "Images/Attaque/Epee.png"
 
 class Non_choisi : 
     def __init__(self):
+        self.degats = 0
         self.image_root = "Images/Attaque/None.png"
 
 class No_action : 
     def __init__(self):
+        self.degats = 0
         self.image_root = "Images/Attaque/None.png"
 
 class Capacite :
@@ -37,6 +39,7 @@ class Personnage:
     def __init__(self, emplacement, image_root="Images/Personnage/p_01.png", max_hp = 10):
         self.en_vie = True
         self.pts_vie = max_hp
+        self.pts_vie_suspen = 0
         self.pts_vie_max = max_hp
         self.image_root = image_root
 
@@ -67,8 +70,8 @@ class Personnage:
         else :
             self.pts_vie += quantite
 
-    def suspendre_vie(self, degats):
-        self.vie_suspen =  degats
+    def suspendre_vie_add(self, degats):
+        self.pts_vie_suspen +=  degats
 
     def mort(self):
         self.en_vie = False
@@ -106,24 +109,36 @@ class Personnage:
         pos_x = 50 + self.pos[0]
         pos_y = 10 + self.pos[1]
 
-        for i in range(self.pts_vie):
+        for i in range(self.pts_vie_suspen):
+            image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
+            image.set_alpha(randint(0, 255))
+            image = pygame.transform.scale(image, (20,20))
+            screen.blit(image, (pos_x, pos_y))
+            pos_x += 10
+            
+            if i % 10 == 0 and i != 0:
+                pos_x -= 100
+                pos_y += 10
+
+        i = self.pts_vie_suspen - 1
+        for j in range(self.pts_vie - self.pts_vie_suspen):
             image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
             
-            if i == 9 or i == 19 :
+            if i+j % 10 == 0 and i+j != 0:
                 pos_x -= 100
                 pos_y += 10
 
-        i = self.pts_vie - 1
-        for j in range(self.pts_vie_max - self.pts_vie) :
+        j = self.pts_vie - 1
+        for k in range(self.pts_vie_max - self.pts_vie) :
             image = pygame.image.load("Images/Etat/pts_vie_empty.png").convert_alpha()
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i+j == 9 or i+j == 19 :
+            if i+j+k % 10 == 0:
                 pos_x -= 100
                 pos_y += 10
 
@@ -228,18 +243,18 @@ class Ennemi():
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i == 9 or i == 19 :
+            if i+1 % 10 == 0 and i != 0:
                 pos_x -= 100
                 pos_y += 10
 
-        i = self.pts_vie - 1
-        for j in range(self.pts_vie_max - self.pts_vie) :
+        i = self.pts_vie
+        for j in range(self.pts_vie_max - i) :
             image = pygame.image.load("Images/Etat/pts_vie_empty.png").convert_alpha()
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i+j == 9 or i+j == 19 :
+            if i+j+1 % 10 == 0 and i+j != 0:
                 pos_x -= 100
                 pos_y += 10
 
@@ -270,7 +285,7 @@ class Ennemi():
             perso_x = 20 + 250
             perso_y = 75 + 75 * self.action_cible + 25
             # On dessine la ligne reliant l'attaquant et l'attaqué
-            ligne = Ligne(100, (self.action_couleur), (self.pos[0], self.pos[1] + 25), (perso_x, perso_y) , self.action.pts_atk + 5)
+            ligne = Ligne(100, (self.action_couleur), (self.pos[0], self.pos[1] + 25), (perso_x, perso_y) , self.action.degats + 5)
             pygame.draw.line(screen, ligne.couleur, ligne.pointA, ligne.pointB, ligne.epaisseur) 
 
 
@@ -286,3 +301,6 @@ class Ennemi():
 
     def get_cible(self):
         return self.action_cible
+    
+    def get_action_degats(self):
+        return self.action.degats

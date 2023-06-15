@@ -57,16 +57,21 @@ CURRENT_SCENE.etat += 1
 
     
     # On ajoute des personnages à la scène
-    for i in range (5):
+    for i in range(5):
         alea = str (randint(0,1)) + str(randint(1,8))
         personnage = Personnage( i , "Images/Personnage/p_" + alea + ".png")
         
         scene.ajout_elm(personnage)
 
     # On ajoute des ennemis à la scène
-    for i in range(3):
+    for i in range(2):
         root = "Images/Personnage/e_01.png"
         scene.ajout_elm(Ennemi(i,root, randint(1,29)))
+    
+    root = "Images/Personnage/e_01.png"
+    Bernard = Ennemi(2,root, randint(1,29))
+    Bernard.set_capacite(Capacite([No_action(), Atk_epee(1)]))
+    scene.ajout_elm(Bernard)
 
     return scene
 
@@ -194,6 +199,17 @@ class Scene :
             for ennemi in self.ennemi:
                 ennemi.nouvelle_action()
                 ennemi.reset_action_cible()
+
+                # On donne à l'ennemi une cible 
+                ennemi.trouver_cible_action()
+                # Cible qui doit nécessairement êrte en vie
+                while not CURRENT_SCENE.perso[ennemi.action_cible].est_en_vie :
+                    ennemi.trouver_cible_action()
+
+                # On met alors en suspen les poinst de vie des personnages
+                cible = ennemi.get_cible()
+                degats = ennemi.get_action_degats() 
+                self.perso[cible].suspendre_vie_add(degats)
             
             # On passe ensuite au tour suivant
             self.etat = 1
@@ -202,21 +218,9 @@ class Scene :
 
             # Pour tous les ennemis
             for ennemi in self.ennemi :
-
-
-                # On donne à l'ennemi une cible 
-                ennemi.trouver_cible_action()
-                # Cible qui doit nécessairement êrte en vie
-                while not CURRENT_SCENE.perso[ennemi.action_cible].est_en_vie :
-                    ennemi.trouver_cible_action()
                 
                 # On affiche ensuite l'action
                 ennemi.affiche_action(screen)
-
-                # On met alors en suspen les poinst de vie des personnages
-                cible = ennemi.get_cible()
-                degats = ennemi.get_action_degats() 
-                self.perso[cible].suspendre_pv(degats)
 
             
             # Pour tous les personnages encore vivants
@@ -228,6 +232,15 @@ class Scene :
 
         
         elif self.etat == 2 :
+            
+            for perso in self.perso:
+                perso.vie_baisser(perso.pts_vie_suspen)
+                perso.pts_vie_suspen = 0
+
+
+            
+            
+            
             self.etat = 3
             
 
