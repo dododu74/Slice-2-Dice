@@ -109,9 +109,8 @@ class Personnage:
         pos_x = 50 + self.pos[0]
         pos_y = 10 + self.pos[1]
 
-        for i in range(self.pts_vie_suspen):
+        for i in range(1 ,self.pts_vie + 1):
             image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
-            image.set_alpha(randint(0, 255))
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
@@ -120,25 +119,29 @@ class Personnage:
                 pos_x -= 100
                 pos_y += 10
 
-        i = self.pts_vie_suspen - 1
-        for j in range(self.pts_vie - self.pts_vie_suspen):
-            image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
-            image = pygame.transform.scale(image, (20,20))
-            screen.blit(image, (pos_x, pos_y))
-            pos_x += 10
-            
-            if i+j % 10 == 0 and i+j != 0:
-                pos_x -= 100
-                pos_y += 10
-
-        j = self.pts_vie - 1
-        for k in range(self.pts_vie_max - self.pts_vie) :
+        i = self.pts_vie
+        for j in range(1 , 1 + self.pts_vie_max - self.pts_vie) :
             image = pygame.image.load("Images/Etat/pts_vie_empty.png").convert_alpha()
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i+j+k % 10 == 0:
+            if (i+j) % 10 == 0:
+                pos_x -= 100
+                pos_y += 10
+
+        pos_x = 50 + self.pos[0]
+        pos_y = 10 + self.pos[1]
+
+        for k in range(self.pts_vie_suspen) :
+            if k <= self.pts_vie :
+                image = pygame.image.load("Images/Etat/pts_vie_suspen.png").convert_alpha()
+                image.set_alpha(randint(150, 205))
+                image = pygame.transform.scale(image, (20,20))
+                screen.blit(image, (pos_x, pos_y))
+                pos_x += 10
+            
+            if k % 10 == 0 and k != 0:
                 pos_x -= 100
                 pos_y += 10
 
@@ -237,13 +240,13 @@ class Ennemi():
         pos_x = 50 + self.pos[0]
         pos_y = 10 + self.pos[1]
 
-        for i in range(self.pts_vie):
+        for i in range(1 ,self.pts_vie + 1):
             image = pygame.image.load("Images/Etat/pts_vie_full.png").convert_alpha()
             image = pygame.transform.scale(image, (20,20))
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i+1 % 10 == 0 and i != 0:
+            if i % 10 == 0 and i != 0:
                 pos_x -= 100
                 pos_y += 10
 
@@ -254,7 +257,7 @@ class Ennemi():
             screen.blit(image, (pos_x, pos_y))
             pos_x += 10
 
-            if i+j+1 % 10 == 0 and i+j != 0:
+            if i + j % 10 == 0 :
                 pos_x -= 100
                 pos_y += 10
 

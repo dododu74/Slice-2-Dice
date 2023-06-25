@@ -59,14 +59,14 @@ CURRENT_SCENE.etat += 1
     # On ajoute des personnages à la scène
     for i in range(5):
         alea = str (randint(0,1)) + str(randint(1,8))
-        personnage = Personnage( i , "Images/Personnage/p_" + alea + ".png")
+        personnage = Personnage( i , "Images/Personnage/p_" + alea + ".png", 35)
         
         scene.ajout_elm(personnage)
 
     # On ajoute des ennemis à la scène
     for i in range(2):
         root = "Images/Personnage/e_01.png"
-        scene.ajout_elm(Ennemi(i,root, randint(1,29)))
+        scene.ajout_elm(Ennemi(i,root, randint(1,290)))
     
     root = "Images/Personnage/e_01.png"
     Bernard = Ennemi(2,root, randint(1,29))
